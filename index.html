@@ -131,9 +131,34 @@
         </div>
         <div class="works">
             <article class="work" data-category="landing" data-title="Modern Landing" data-description="A modern responsive landing page template with accessible semantics." data-tech="HTML,CSS,JavaScript">
-                <div class="work__box work__reveal">
+                <div class="work__box work__reveal" data-tilt>
                     <span class="work__img-box">
-                        <img src="./assets/works/sample.png" alt="Modern Landing preview"/>
+                        <div class="work-thumb work-thumb--landing" aria-label="Modern landing page concept">
+                            <svg viewBox="0 0 160 110" role="img" aria-label="Landing hero" class="wt-svg">
+                                <defs>
+                                    <linearGradient id="lg-hero" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#00ff94"/>
+                                        <stop offset="70%" stop-color="#4f2dff"/>
+                                    </linearGradient>
+                                    <linearGradient id="lg-pane" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#1d2730"/>
+                                        <stop offset="100%" stop-color="#14191f"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect x="6" y="10" width="148" height="20" rx="6" fill="url(#lg-hero)" class="wt-glow-stroke"/>
+                                <g class="wt-float-slow">
+                                    <rect x="10" y="38" width="78" height="56" rx="8" fill="url(#lg-pane)" class="wt-pane"/>
+                                    <rect x="94" y="38" width="54" height="24" rx="6" class="wt-pane"/>
+                                    <rect x="94" y="66" width="54" height="28" rx="6" class="wt-pane"/>
+                                    <rect x="18" y="50" width="48" height="8" rx="4" class="wt-barline"/>
+                                    <rect x="18" y="64" width="40" height="6" rx="3" class="wt-barline"/>
+                                    <rect x="18" y="76" width="30" height="6" rx="3" class="wt-barline"/>
+                                </g>
+                                <circle cx="32" cy="20" r="3" class="wt-dot" />
+                                <circle cx="42" cy="20" r="3" class="wt-dot" />
+                                <circle cx="52" cy="20" r="3" class="wt-dot" />
+                            </svg>
+                        </div>
                     </span>
                     <h3 class="work__title">Modern Landing</h3>
                     <span class="work__badges">
@@ -143,10 +168,28 @@
                     </span>
                 </div>
             </article>
-            <article class="work" data-category="ui" data-title="UI Components" data-description="Reusable accessible UI component library." data-tech="HTML,CSS,Vanilla JS">
-                <div class="work__box work__reveal">
+            <article class="work" data-category="ui" data-title="UI Components" data-description="Reusable accessible UI component library." data-tech="HTML,CSS,JavaScript">
+                <div class="work__box work__reveal" data-tilt>
                     <span class="work__img-box">
-                        <img src="./assets/works/sample.png" alt="UI Components preview"/>
+                        <div class="work-thumb work-thumb--ui" aria-label="UI component grid illustration">
+                            <svg viewBox="0 0 160 110" role="img" aria-label="Grid of components" class="wt-svg">
+                                <defs>
+                                    <linearGradient id="lg-ui" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#4f2dff"/>
+                                        <stop offset="100%" stop-color="#00ff94"/>
+                                    </linearGradient>
+                                </defs>
+                                <g class="wt-grid-pulse">
+                                    <rect x="10" y="10" width="40" height="22" rx="6" class="wt-pane"/>
+                                    <rect x="56" y="10" width="94" height="22" rx="6" fill="url(#lg-ui)" class="wt-glow-stroke"/>
+                                    <rect x="10" y="40" width="48" height="58" rx="8" class="wt-pane"/>
+                                    <rect x="64" y="40" width="86" height="26" rx="8" class="wt-pane wt-delay1"/>
+                                    <rect x="64" y="72" width="86" height="26" rx="8" class="wt-pane wt-delay2"/>
+                                    <rect x="20" y="52" width="28" height="8" rx="4" class="wt-barline"/>
+                                    <rect x="20" y="66" width="24" height="6" rx="3" class="wt-barline"/>
+                                </g>
+                            </svg>
+                        </div>
                     </span>
                     <h3 class="work__title">UI Components</h3>
                     <span class="work__badges">
@@ -157,9 +200,21 @@
                 </div>
             </article>
             <article class="work" data-category="app" data-title="Task App" data-description="Lightweight task management web application." data-tech="HTML,CSS,JavaScript">
-                <div class="work__box work__reveal">
+                <div class="work__box work__reveal" data-tilt>
                     <span class="work__img-box">
-                        <img src="./assets/works/sample.png" alt="Task app preview"/>
+                        <div class="work-thumb work-thumb--task" aria-label="Task checklist illustration">
+                            <svg viewBox="0 0 160 110" role="img" aria-label="Checklist" class="wt-svg">
+                                <rect x="26" y="14" width="110" height="12" rx="5" class="wt-barline"/>
+                                <g class="wt-list">
+                                    <g class="wt-row"><rect x="14" y="34" width="14" height="14" rx="4" class="wt-pane"/><polyline points="16,41 20,45 28,37" class="wt-check"/></g>
+                                    <rect x="34" y="36" width="92" height="10" rx="5" class="wt-panel"/>
+                                    <g class="wt-row"><rect x="14" y="56" width="14" height="14" rx="4" class="wt-pane"/></g>
+                                    <rect x="34" y="58" width="70" height="10" rx="5" class="wt-panel"/>
+                                    <g class="wt-row"><rect x="14" y="78" width="14" height="14" rx="4" class="wt-pane"/></g>
+                                    <rect x="34" y="80" width="54" height="10" rx="5" class="wt-panel"/>
+                                </g>
+                            </svg>
+                        </div>
                     </span>
                     <h3 class="work__title">Task App</h3>
                     <span class="work__badges">
@@ -170,9 +225,17 @@
                 </div>
             </article>
             <article class="work" data-category="landing" data-title="Portfolio Template" data-description="Customizable portfolio starter built with semantic markup." data-tech="HTML,CSS,JavaScript">
-                <div class="work__box work__reveal">
+                <div class="work__box work__reveal" data-tilt>
                     <span class="work__img-box">
-                        <img src="./assets/works/sample.png" alt="Portfolio template preview"/>
+                        <div class="work-thumb work-thumb--portfolio" aria-label="Portfolio layout illustration">
+                            <svg viewBox="0 0 160 110" role="img" aria-label="Profile layout" class="wt-svg">
+                                <circle cx="44" cy="52" r="22" class="wt-pane"/>
+                                <circle cx="44" cy="52" r="22" class="wt-ring"/>
+                                <rect x="82" y="34" width="62" height="12" rx="6" class="wt-barline"/>
+                                <rect x="82" y="52" width="48" height="10" rx="5" class="wt-panel"/>
+                                <rect x="18" y="86" width="126" height="14" rx="7" class="wt-panel"/>
+                            </svg>
+                        </div>
                     </span>
                     <h3 class="work__title">Portfolio Template</h3>
                     <span class="work__badges">
@@ -183,9 +246,18 @@
                 </div>
             </article>
             <article class="work" data-category="ui" data-title="Design System" data-description="Foundational design system tokens and styles." data-tech="HTML,CSS">
-                <div class="work__box work__reveal">
+                <div class="work__box work__reveal" data-tilt>
                     <span class="work__img-box">
-                        <img src="./assets/works/sample.png" alt="Design system preview"/>
+                        <div class="work-thumb work-thumb--design" aria-label="Design tokens illustration">
+                            <svg viewBox="0 0 160 110" role="img" aria-label="Tokens grid" class="wt-svg">
+                                <circle cx="46" cy="42" r="26" class="wt-pane"/>
+                                <circle cx="46" cy="42" r="26" class="wt-ring"/>
+                                <circle cx="100" cy="34" r="14" class="wt-accent"/>
+                                <rect x="90" y="60" width="54" height="14" rx="7" class="wt-barline"/>
+                                <rect x="24" y="78" width="52" height="20" rx="9" class="wt-pane"/>
+                                <rect x="90" y="82" width="54" height="16" rx="8" class="wt-pane"/>
+                            </svg>
+                        </div>
                     </span>
                     <h3 class="work__title">Design System</h3>
                     <span class="work__badges">
@@ -195,9 +267,19 @@
                 </div>
             </article>
             <article class="work" data-category="app" data-title="Notes App" data-description="Offline-capable notes PWA demo." data-tech="HTML,CSS,JavaScript">
-                <div class="work__box work__reveal">
+                <div class="work__box work__reveal" data-tilt>
                     <span class="work__img-box">
-                        <img src="./assets/works/sample.png" alt="Notes app preview"/>
+                        <div class="work-thumb work-thumb--notes" aria-label="Notes board illustration">
+                            <svg viewBox="0 0 160 110" role="img" aria-label="Sticky notes" class="wt-svg">
+                                <g class="wt-stack">
+                                    <rect x="20" y="26" width="56" height="44" rx="8" class="wt-pane"/>
+                                    <rect x="30" y="38" width="36" height="8" rx="4" class="wt-barline"/>
+                                    <rect x="30" y="50" width="30" height="6" rx="3" class="wt-barline"/>
+                                    <rect x="90" y="18" width="50" height="30" rx="8" class="wt-accent"/>
+                                    <rect x="90" y="56" width="54" height="32" rx="10" class="wt-pane wt-delay1"/>
+                                </g>
+                            </svg>
+                        </div>
                     </span>
                     <h3 class="work__title">Notes App</h3>
                     <span class="work__badges">

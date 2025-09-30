@@ -512,6 +512,42 @@ body, body[data-theme="light"]{
 .work__img-box img{
     width: 100%;
 }
+.work-thumb{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1d1a22,#171417 60%,#121212);position:relative;border:1px solid var(--clr-border);border-radius:6px;overflow:hidden;}
+.work-thumb svg{width:100%;height:100%;display:block;--stroke:var(--clr-accent);}
+.work-thumb .wt-bar{fill:#0e2720;stroke:var(--clr-border);stroke-width:1.5;}
+.work-thumb .wt-panel{fill:#1f2630;stroke:#2c3d36;stroke-width:1.2;}
+.work-thumb .wt-accent{fill:var(--clr-accent-alt);filter:drop-shadow(0 0 4px rgba(0,255,148,.35));}
+.work-thumb .wt-barline{fill:#162025;}
+.work-thumb .wt-ring{fill:none;stroke:var(--clr-accent);stroke-width:2;stroke-dasharray:4 6;animation:spinRing 9s linear infinite;opacity:.55;}
+.work-thumb .wt-check{fill:none;stroke:var(--clr-accent);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:26;stroke-dashoffset:26;animation:drawCheck 4s ease-in-out infinite 1s;}
+.wt-float-slow{animation:floatPanels 8s ease-in-out infinite;}
+.wt-grid-pulse .wt-pane{animation:pulsePanel 5s ease-in-out infinite;}
+.wt-grid-pulse .wt-pane.wt-delay1{animation-delay:1s;}
+.wt-grid-pulse .wt-pane.wt-delay2{animation-delay:2s;}
+.wt-list .wt-row rect{animation:pulsePanel 6s ease-in-out infinite;}
+.wt-stack .wt-pane.wt-delay1{animation:floatPanels 7s ease-in-out infinite 1.5s;}
+.work-thumb .wt-dot{fill:#fff;opacity:.9;animation:blink 3.2s steps(2,end) infinite;}
+.wt-glow-stroke{stroke:var(--clr-accent);stroke-width:1;filter:drop-shadow(0 0 6px rgba(0,255,148,.4));}
+.work-thumb::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 25%,rgba(0,255,148,.18),transparent 65%);mix-blend-mode:overlay;opacity:.55;pointer-events:none;transition:opacity .5s ease;}
+.work__box:hover .work-thumb::after{opacity:.8;}
+.work-thumb--landing svg .wt-panel{animation:floatPanels 6s ease-in-out infinite;}
+.work-thumb--ui svg .wt-panel:nth-of-type(3){animation:pulsePanel 3.2s ease-in-out infinite .4s;}
+.work-thumb--task svg .wt-accent{animation:blink 2.2s steps(2,end) infinite .6s;}
+.work-thumb--portfolio svg circle{animation:floatPanels 7s ease-in-out infinite .5s;}
+.work-thumb--design svg .wt-accent{animation:pulseAccent 3s ease-in-out infinite;}
+.work-thumb--notes svg rect:first-of-type{animation:tilt 5s ease-in-out infinite;}
+@keyframes floatPanels{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes pulsePanel{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
+@keyframes blink{0%,40%,100%{opacity:1}50%,60%{opacity:.25}}
+@keyframes pulseAccent{0%,100%{filter:drop-shadow(0 0 4px rgba(0,255,148,.35))}50%{filter:drop-shadow(0 0 10px rgba(0,255,148,.75))}}
+@keyframes tilt{0%,100%{transform:rotate(0deg)}40%{transform:rotate(-2deg)}60%{transform:rotate(2deg)}}
+@keyframes spinRing{to{transform:rotate(360deg)}}
+@keyframes drawCheck{0%,40%{stroke-dashoffset:26}55%,100%{stroke-dashoffset:0}}
+
+/* Interactive tilt (JS optional fallback) */
+[data-tilt]{transform-style:preserve-3d;will-change:transform;transition:transform .5s cubic-bezier(.16,.84,.44,1);} 
+[data-tilt]:hover{transition:transform .15s ease-out;} 
+[data-tilt] .work-thumb{transform:translateZ(25px);} 
 .work__title{
     margin-top: 1rem;
     font-weight: 700;

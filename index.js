@@ -346,6 +346,36 @@ const revealObserver = new IntersectionObserver(entries => {
 }, {threshold: 0.15});
 document.querySelectorAll('.work__reveal').forEach(el => revealObserver.observe(el));
 
+// Tilt effect for project cards (progressive enhancement)
+const tiltCards = document.querySelectorAll('[data-tilt]');
+tiltCards.forEach(card => {
+  const strength = 12; // tilt intensity
+  let enterTimeout;
+  function handleMove(e){
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width; // 0 - 1
+    const y = (e.clientY - rect.top) / rect.height; // 0 - 1
+    const rx = (y - .5) * strength;
+    const ry = (x - .5) * -strength;
+    card.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+  }
+  function reset(){
+    card.style.transform = '';
+  }
+  card.addEventListener('mouseenter', e=>{
+    clearTimeout(enterTimeout);
+    enterTimeout = setTimeout(()=>card.classList.add('tilt-active'),40);
+  });
+  card.addEventListener('mousemove', handleMove);
+  card.addEventListener('mouseleave', ()=>{reset();card.classList.remove('tilt-active');});
+  card.addEventListener('touchmove', e=>{
+    if(e.touches && e.touches[0]){
+      handleMove(e.touches[0]);
+    }
+  }, {passive:true});
+  card.addEventListener('touchend', reset);
+});
+
 // Back to top button
 window.addEventListener('scroll', () => {
   if(window.scrollY > 900){
