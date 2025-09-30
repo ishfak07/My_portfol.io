@@ -27,13 +27,6 @@ window.PORTFOLIO_DATA = {
       end: 'September 2025'
     },
     {
-      institution: 'NSBM Green University',
-      program: 'BSc (Hons) Computer Science',
-      focus: 'Computer Software Engineering',
-      start: '2022',
-      end: '2025'
-    },
-    {
       institution: 'Refresh Collage',
       program: 'NVQ 4',
       focus: 'Computer Science'
