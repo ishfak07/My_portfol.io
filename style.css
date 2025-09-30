@@ -149,6 +149,18 @@ img{max-width:100%;height:auto;}
     .contact-direct__item{padding:1.2rem 1.3rem;font-size:1.25rem;}
 }
 
+/* ----------------------------------
+     Services Layout Revert (User prefers old look)
+     Restore original flex column on small screens and 3-up layout on medium
+     ---------------------------------- */
+.service-cards{display:flex;flex-direction:column;margin-top:10rem;gap:0;}
+.service-card__box{max-width:100%;}
+@media only screen and (min-width:48em){
+    .service-cards{flex-direction:row;flex-wrap:wrap;justify-content:space-between;width:100%;}
+    .service-card__box{width:28%;max-width:350px;}
+    .service-card__illustration{width:100%;max-width:150px;height:150px;margin-left:auto;margin-right:auto;}
+}
+
 .container {
     display: block;
     margin-left: auto;
@@ -407,7 +419,7 @@ img{max-width:100%;height:auto;}
     margin-top: 10rem;
 }
 .service-card__box{
-    margin-bottom: 7rem;
+    margin-bottom: 7rem; /* original spacing restored */
     border: 2px solid var(--clr-border);
     padding: 1.5rem;
     border-radius: 15px;
@@ -418,10 +430,7 @@ img{max-width:100%;height:auto;}
     transition: transform var(--transition-medium), border-color var(--transition-fast);
 }
 .service-card__box:hover{transform:translateY(-5px); border-color:var(--clr-accent);}
-.service-card__illustration{
-    display: flex;
-    width: 250px;
-}
+.service-card__illustration{display:flex;width:250px;}
 .service-card__illustration img{
     width: 100%;
     pointer-events: none;
@@ -436,6 +445,9 @@ img{max-width:100%;height:auto;}
     font-weight: 600;
     font-size: 1.4rem;
     line-height: 1.6;
+    /* Removed experimental line-clamp due to lint error */
+    height:11.2rem; /* ~5 lines: 1.4rem * 1.6 line-height * 5 */
+    overflow:hidden; /* hide overflow for consistent card height */
 }
 .service-card__bg{
     position: absolute;
@@ -868,6 +880,13 @@ img{max-width:100%;height:auto;}
     .service-card__illustration{max-width:140px;height:140px;margin-left:auto;margin-right:auto;}
 }
 
+/* Two-column layout on small-mid screens before full 3-column (between 32em and 48em) */
+@media (min-width:32em) and (max-width:47.999em){
+    .service-cards{flex-direction:row;flex-wrap:wrap;gap:2.2rem;}
+    .service-card__box{flex:1 1 calc(50% - 2.2rem);}
+    .service-card__illustration{margin-left:auto;margin-right:auto;}
+}
+
 /*
  * ========================
  * Large Screen -- 992px
@@ -877,10 +896,10 @@ img{max-width:100%;height:auto;}
     .container {
         max-width: 960px;
     }
-    .section__title{font-size:clamp(5.2rem,6vw,8rem);} /* smooth scale into large sizes */
-    .about{grid-template-columns:minmax(0,2fr) minmax(0,1fr);align-items:start;}
-    /* Works: allow grid sizing */
-    .work{width:auto;}
+    /* Services: switch to grid for perfectly equal column widths & heights */
+    .service-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4rem;align-items:stretch;}
+    .service-card__box{width:auto;max-width:none;margin-bottom:0;display:flex;flex-direction:column;min-height:300px;}
+    .service-card__illustration{width:100%;max-width:150px;height:150px;margin-left:auto;margin-right:auto;}
     .contact__form{
         width: 40%;
         margin-left: unset;
@@ -934,6 +953,8 @@ img{max-width:100%;height:auto;}
         max-width: 1320px;
     }
 }
+
+/* (Removed unified grid layout override for services) */
 
 
 /*
