@@ -12,13 +12,18 @@
 
     <!-- CSS & JS -->
     <link rel="stylesheet" href="./style.css"/>
+    <script src="./data.js" defer></script>
     <script src="./index.js" defer></script>
 
     <!-- Meta Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="100% FREE Professional Portfolio Templates - Plain Template"/>
-    <meta name="keywords" content="OSSPH, Free portfolio"/>
-    <title> Hax | a Freefolio template by OSSPH</title>
+    <meta name="description" content="Portfolio of M. I. F. Ishfaque – Software Engineer | BSc (Hons) Computer Science | MERN | ERP | FRAPPE | Agile | Web & QA Testing"/>
+    <meta name="keywords" content="Software Engineer, MERN, ERP, FRAPPE, Agile, QA Testing, Portfolio, Ishfaque"/>
+    <meta name="author" content="M. I. F. Ishfaque" />
+    <meta property="og:title" content="M. I. F. Ishfaque | Software Engineer" />
+    <meta property="og:description" content="Software Engineer – MERN, ERP, FRAPPE, Agile Methodology, Web & QA Testing." />
+    <meta property="og:type" content="website" />
+    <title>M. I. F. Ishfaque | Software Engineer Portfolio</title>
 
     <!-- Icons -->
     <link rel="icon" href="./favicon.ico">
@@ -45,39 +50,41 @@
                     <span class="nav__hamburger-center"></span>
                     <span class="nav__hamburger-bottom"></span>
                 </button>
+                <button type="button" id="themeToggleBtn" class="nav__theme-toggle" aria-label="Toggle dark / light theme" title="Toggle theme">🌙</button>
                 <ul id="navList" class="nav__list">
-                    <li class="nav__list-item">
-                        <a class="nav__list-link active" href="#heroHeader">&lt;Home &sol;&gt;</a>
-                    </li>
-                    <li class="nav__list-item">
-                        <a class="nav__list-link" href="#services">&lt;Services &sol;&gt;</a>
-                    </li>
-                    <li class="nav__list-item">
-                        <a class="nav__list-link" href="#works">&lt;Works &sol;&gt;</a>
-                    </li>
-                    <li class="nav__list-item">
-                        <a class="nav__list-link" href="#contact">&lt;Contact &sol;&gt;</a>
-                    </li>
+                    <li class="nav__list-item"><a class="nav__list-link active" href="index.html">&lt;Home &sol;/&gt;</a></li>
+                    <li class="nav__list-item"><a class="nav__list-link" href="about.html">&lt;About &sol;/&gt;</a></li>
+                    <li class="nav__list-item"><a class="nav__list-link" href="projects.html">&lt;Projects &sol;/&gt;</a></li>
+                    <li class="nav__list-item"><a class="nav__list-link" href="contact.html">&lt;Contact &sol;/&gt;</a></li>
                 </ul>
             </div>
         </nav>
         <section class="header__container container">
             <div class="header__left">
-                <span class="header__sup-text">Hello There! I am a</span>
-                <h1 class="header__title">
-                    <span class="header__title-1" data-role="WEB">Web</span>
-                    <span class="header__title-2" data-role="DEVELOPER">Developer</span>
-                </h1>
-                <p class="header__msg">As a front-end web developer, my passion lies in creating beautiful and intuitive
-                    user experiences through the use of clean and efficient code.</p>
-                <a href="#" class="header__resume">Resume</a>
+                <span class="header__sup-text">Hello, I'm</span>
+                <h1 class="header__title"><span class="header__name" id="heroName">M. I. F. Ishfaque</span></h1>
+                <h2 class="header__subtitle">
+                    <span class="header__title-1" id="typedRolePrimary" data-role="SOFTWARE">C++</span>
+                    <span class="header__title-2" id="typedRoleSecondary" data-role="ENGINEER">Html</span>
+                </h2>
+                <p class="header__msg" id="dynamicTagline">I build performant, reliable, and user-centric software solutions with modern web technologies.</p>
+                <div class="header__actions">
+                    <a href="./ishfak%20resume%20N.pdf" class="header__resume" download title="Download Resume PDF">Download Resume</a>
+                    <button id="printResumeBtn" class="btn btn--ghost" type="button">Print</button>
+                    <button id="copyEmailBtn" class="btn btn--ghost" type="button" data-email="memberofpfc20@gmail.com">Copy Email</button>
+                </div>
+                <div class="social-links" aria-label="Social Links">
+                    <a href="mailto:memberofpfc20@gmail.com" class="social-link" title="Email">📧</a>
+                    <a href="https://www.linkedin.com/in/faizul-ishfaque" target="_blank" rel="noopener" class="social-link" title="LinkedIn">in</a>
+                </div>
             </div>
             <div class="header__right">
-                <img src="./assets/illustrations/header.svg" alt="Header section illustration"/>
+                <img src="./assets/illustrations/header.svg" alt="Header section illustration" loading="lazy"/>
             </div>
         </section>
         <span class="header__bg"></span>
     </header>
+
 
     <!-- Services -->
     <section id="services" class="section container">
@@ -111,117 +118,132 @@
         </div>
     </section>
 
+    <!-- Removed detailed About / Skills / Experience from landing for simplicity -->
+
     <!-- Sample Works -->
     <section id="works" class="section container">
         <h2 class="section__title">My Works</h2>
+        <div class="works__filters" role="group" aria-label="Filter projects">
+            <button type="button" class="works__filter-btn works__filter-btn--active" data-filter="all">All</button>
+            <button type="button" class="works__filter-btn" data-filter="landing">Landing Pages</button>
+            <button type="button" class="works__filter-btn" data-filter="ui">UI</button>
+            <button type="button" class="works__filter-btn" data-filter="app">Apps</button>
+        </div>
         <div class="works">
-            <article class="work">
-                <div class="work__box">
+            <article class="work" data-category="landing" data-title="Modern Landing" data-description="A modern responsive landing page template with accessible semantics." data-tech="HTML,CSS,JavaScript">
+                <div class="work__box work__reveal">
                     <span class="work__img-box">
-                    <img src="./assets/works/sample.png" alt="My Work 1"/>
-                </span>
-                    <h3 class="work__title">My Landing Page</h3>
+                        <img src="./assets/works/sample.png" alt="Modern Landing preview"/>
+                    </span>
+                    <h3 class="work__title">Modern Landing</h3>
                     <span class="work__badges">
-                    <span class="work__badge">HTML</span>
-                    <span class="work__badge">CSS</span>
-                    <span class="work__badge">JavaScript</span>
-                </span>
+                        <span class="work__badge">HTML</span>
+                        <span class="work__badge">CSS</span>
+                        <span class="work__badge">JavaScript</span>
+                    </span>
                 </div>
             </article>
-            <article class="work">
-                <div class="work__box">
+            <article class="work" data-category="ui" data-title="UI Components" data-description="Reusable accessible UI component library." data-tech="HTML,CSS,Vanilla JS">
+                <div class="work__box work__reveal">
                     <span class="work__img-box">
-                    <img src="./assets/works/sample.png" alt="My Work 1"/>
-                </span>
-                    <h3 class="work__title">My Landing Page</h3>
+                        <img src="./assets/works/sample.png" alt="UI Components preview"/>
+                    </span>
+                    <h3 class="work__title">UI Components</h3>
                     <span class="work__badges">
-                    <span class="work__badge">HTML</span>
-                    <span class="work__badge">CSS</span>
-                    <span class="work__badge">JavaScript</span>
-                </span>
+                        <span class="work__badge">HTML</span>
+                        <span class="work__badge">CSS</span>
+                        <span class="work__badge">JavaScript</span>
+                    </span>
                 </div>
             </article>
-            <article class="work">
-                <div class="work__box">
+            <article class="work" data-category="app" data-title="Task App" data-description="Lightweight task management web application." data-tech="HTML,CSS,JavaScript">
+                <div class="work__box work__reveal">
                     <span class="work__img-box">
-                    <img src="./assets/works/sample.png" alt="My Work 1"/>
-                </span>
-                    <h3 class="work__title">My Landing Page</h3>
+                        <img src="./assets/works/sample.png" alt="Task app preview"/>
+                    </span>
+                    <h3 class="work__title">Task App</h3>
                     <span class="work__badges">
-                    <span class="work__badge">HTML</span>
-                    <span class="work__badge">CSS</span>
-                    <span class="work__badge">JavaScript</span>
-                </span>
+                        <span class="work__badge">HTML</span>
+                        <span class="work__badge">CSS</span>
+                        <span class="work__badge">JavaScript</span>
+                    </span>
                 </div>
             </article>
-            <article class="work">
-                <div class="work__box">
+            <article class="work" data-category="landing" data-title="Portfolio Template" data-description="Customizable portfolio starter built with semantic markup." data-tech="HTML,CSS,JavaScript">
+                <div class="work__box work__reveal">
                     <span class="work__img-box">
-                    <img src="./assets/works/sample.png" alt="My Work 1"/>
-                </span>
-                    <h3 class="work__title">My Landing Page</h3>
+                        <img src="./assets/works/sample.png" alt="Portfolio template preview"/>
+                    </span>
+                    <h3 class="work__title">Portfolio Template</h3>
                     <span class="work__badges">
-                    <span class="work__badge">HTML</span>
-                    <span class="work__badge">CSS</span>
-                    <span class="work__badge">JavaScript</span>
-                </span>
+                        <span class="work__badge">HTML</span>
+                        <span class="work__badge">CSS</span>
+                        <span class="work__badge">JavaScript</span>
+                    </span>
                 </div>
             </article>
-            <article class="work">
-                <div class="work__box">
+            <article class="work" data-category="ui" data-title="Design System" data-description="Foundational design system tokens and styles." data-tech="HTML,CSS">
+                <div class="work__box work__reveal">
                     <span class="work__img-box">
-                    <img src="./assets/works/sample.png" alt="My Work 1"/>
-                </span>
-                    <h3 class="work__title">My Landing Page</h3>
+                        <img src="./assets/works/sample.png" alt="Design system preview"/>
+                    </span>
+                    <h3 class="work__title">Design System</h3>
                     <span class="work__badges">
-                    <span class="work__badge">HTML</span>
-                    <span class="work__badge">CSS</span>
-                    <span class="work__badge">JavaScript</span>
-                </span>
+                        <span class="work__badge">HTML</span>
+                        <span class="work__badge">CSS</span>
+                    </span>
                 </div>
             </article>
-            <article class="work">
-                <div class="work__box">
+            <article class="work" data-category="app" data-title="Notes App" data-description="Offline-capable notes PWA demo." data-tech="HTML,CSS,JavaScript">
+                <div class="work__box work__reveal">
                     <span class="work__img-box">
-                    <img src="./assets/works/sample.png" alt="My Work 1"/>
-                </span>
-                    <h3 class="work__title">My Landing Page</h3>
+                        <img src="./assets/works/sample.png" alt="Notes app preview"/>
+                    </span>
+                    <h3 class="work__title">Notes App</h3>
                     <span class="work__badges">
-                    <span class="work__badge">HTML</span>
-                    <span class="work__badge">CSS</span>
-                    <span class="work__badge">JavaScript</span>
-                </span>
+                        <span class="work__badge">HTML</span>
+                        <span class="work__badge">CSS</span>
+                        <span class="work__badge">JavaScript</span>
+                    </span>
                 </div>
             </article>
         </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" class="section container">
-        <h2 class="section__title">Let's Connect!</h2>
-        <div class="contact">
-            <form class="contact__form">
-                <div class="contact__field-wrapper">
-                    <label for="contactNameTxt">Name:</label>
-                    <input id="contactNameTxt" type="text" placeholder="What's your name?"/>
-                </div>
-                <div class="contact__field-wrapper">
-                    <label for="contactDescriptionTxt">Message:</label>
-                    <textarea id="contactDescriptionTxt" placeholder="Lets connect!"></textarea>
-                </div>
-
-                <button type="submit" class="contact__submit-btn">Submit</button>
-            </form>
-            <span class="contact__illustration">
-                <img src="./assets/illustrations/connect.svg" alt="Group of people connecting with each other"/>
-            </span>
-        </div>
-    </section>
+    <!-- Contact section now moved to separate page (contact.html) -->
 
     <!-- Footer -->
     <footer class="footer">
-        Template made with ❤️ by <a href="https://github.com/Finestwork" target="_blank" class="footer__link">Kapitan Heneral</a>
+        <span>&copy; <span id="currentYear"></span> • Built with ❤️ by <a href="https://github.com/Finestwork" target="_blank" class="footer__link">Kapitan Heneral</a></span>
     </footer>
 </main>
+<!-- Project Modal -->
+<div id="projectModal" class="modal" aria-hidden="true" role="dialog" aria-modal="false">
+    <div class="modal__dialog" role="document">
+        <button class="modal__close" id="modalCloseBtn" aria-label="Close project details">×</button>
+        <h3 class="modal__title" id="modalProjectTitle">Project Title</h3>
+        <p class="modal__description" id="modalProjectDescription"></p>
+        <div class="modal__tech" id="modalProjectTech"></div>
+    </div>
+</div>
+
+<!-- Back To Top -->
+<button id="backToTopBtn" class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "M. I. F. Ishfaque",
+    "email": "mailto:memberofpfc20@gmail.com",
+    "jobTitle": "Software Engineer",
+    "alumniOf": ["University of Plymouth", "NSBM Green University"],
+    "sameAs": ["https://www.linkedin.com/in/faizul-ishfaque"],
+    "description": "Software Engineer | BSc (Hons) Computer Science (2nd Lower) | MERN | ERP | FRAPPE | Agile Methodology | Web & QA Testing",
+    "knowsAbout": ["MERN Stack","ERP","Frappe","Agile Methodology","Problem Solving","System Design","QA Testing","Graphic Design","Digital Illustration","Visual Communication"],
+    "worksFor": {"@type":"Organization","name":"Imara Software Solutions"},
+    "address": {"@type":"PostalAddress", "addressLocality":"Puttalam", "addressCountry":"Sri Lanka"}
+}
+</script>
 </body>
 </html>

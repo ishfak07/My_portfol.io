@@ -2,13 +2,119 @@ const NAV_BAR = document.getElementById('navBar');
 const NAV_LIST = document.getElementById('navList');
 const HERO_HEADER = document.getElementById('heroHeader');
 const HAMBURGER_BTN = document.getElementById('hamburgerBtn');
-const NAV_LINKS = Array.from( document.querySelectorAll('.nav__list-link'));
+const NAV_LINKS = Array.from(document.querySelectorAll('.nav__list-link'));
 const SERVICE_BOXES = document.querySelectorAll('.service-card__box');
 const ACTIVE_LINK_CLASS = 'active';
 const BREAKPOINT = 576;
+const THEME_TOGGLE_BTN = document.getElementById('themeToggleBtn');
+const BODY = document.body;
+const SKILL_ITEMS = document.querySelectorAll('.skill');
+const WORKS_FILTER_BTNS = document.querySelectorAll('.works__filter-btn');
+const WORK_ITEMS = document.querySelectorAll('.work');
+const MODAL = document.getElementById('projectModal');
+const MODAL_CLOSE_BTN = document.getElementById('modalCloseBtn');
+const MODAL_TITLE = document.getElementById('modalProjectTitle');
+const MODAL_DESC = document.getElementById('modalProjectDescription');
+const MODAL_TECH = document.getElementById('modalProjectTech');
+const BACK_TO_TOP_BTN = document.getElementById('backToTopBtn');
+const CURRENT_YEAR_SPAN = document.getElementById('currentYear');
+const TYPED_ROLE_PRIMARY = document.getElementById('typedRolePrimary');
+const TYPED_ROLE_SECONDARY = document.getElementById('typedRoleSecondary');
+const DYNAMIC_TAGLINE = document.getElementById('dynamicTagline');
+const EXPERIENCE_TIMELINE = document.getElementById('experienceTimeline');
+const EDUCATION_LIST = document.getElementById('educationList');
+const CERT_LIST = document.getElementById('certList');
+const AWARDS_LIST = document.getElementById('awardsList');
+const PRINT_RESUME_BTN = document.getElementById('printResumeBtn');
+const COPY_EMAIL_BTN = document.getElementById('copyEmailBtn');
+const CONTACT_FORM = document.querySelector('.contact__form');
+const CONTACT_ERROR = document.getElementById('contactFormError');
+
+// Footer Year
+if (CURRENT_YEAR_SPAN) CURRENT_YEAR_SPAN.textContent = new Date().getFullYear();
+
+// Data driven sections
+const DATA = window.PORTFOLIO_DATA || {};
+function renderExperience(){
+  if(!EXPERIENCE_TIMELINE || !DATA.experience) return;
+  EXPERIENCE_TIMELINE.innerHTML = DATA.experience.map(exp => `
+    <div class="timeline-item">
+      <div class="timeline-item__role">${exp.role}</div>
+      <div class="timeline-item__company">${exp.company}</div>
+      <div class="timeline-item__meta">${exp.start} – ${exp.end} • ${exp.location}</div>
+      <ul class="timeline-item__list">
+        ${exp.highlights.map(h => `<li>${h}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+}
+function renderEducation(){
+  if(!EDUCATION_LIST || !DATA.education) return;
+  EDUCATION_LIST.innerHTML = DATA.education.map(ed => `
+    <div class="edu-item">
+      <div class="edu-item__program">${ed.program}</div>
+      <div class="edu-item__institution">${ed.institution}</div>
+      <div class="edu-item__meta">${[ed.focus, ed.start && ed.end ? `${ed.start} – ${ed.end}` : ''].filter(Boolean).join(' • ')}</div>
+    </div>
+  `).join('');
+}
+function renderCerts(){
+  if(!CERT_LIST || !DATA.certifications) return;
+  CERT_LIST.innerHTML = DATA.certifications.map(c => `<li>${c}</li>`).join('');
+}
+function renderAwards(){
+  if(!AWARDS_LIST || !DATA.awards) return;
+  AWARDS_LIST.innerHTML = DATA.awards.map(a => `<li>${a}</li>`).join('');
+}
+renderExperience();
+renderEducation();
+renderCerts();
+renderAwards();
+
+// Utility interactions
+PRINT_RESUME_BTN?.addEventListener('click', ()=>{ window.print(); });
+COPY_EMAIL_BTN?.addEventListener('click', (e)=>{
+  const email = e.currentTarget.getAttribute('data-email');
+  if(!email) return;
+  navigator.clipboard.writeText(email).then(()=>{
+    COPY_EMAIL_BTN.textContent = 'Copied!';
+    setTimeout(()=> COPY_EMAIL_BTN.textContent = 'Copy Email', 1800);
+  });
+});
+
+// Contact form (front-end only demo validation)
+CONTACT_FORM?.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const nameVal = document.getElementById('contactNameTxt').value.trim();
+  const msgVal = document.getElementById('contactDescriptionTxt').value.trim();
+  if(!nameVal || !msgVal){
+    CONTACT_ERROR.textContent = 'Please fill in both fields.';
+    return;
+  }
+  CONTACT_ERROR.textContent = '';
+  // Simulate submit success
+  e.target.reset();
+  CONTACT_ERROR.style.color = 'var(--clr-accent)';
+  CONTACT_ERROR.textContent = 'Message queued locally (demo).';
+  setTimeout(()=>{CONTACT_ERROR.textContent=''; CONTACT_ERROR.style.color='var(--clr-danger)';}, 2500);
+});
 
 let currentServiceBG = null;
 let currentActiveLink = document.querySelector('.nav__list-link.active');
+
+// Multi-page active nav highlight
+(function setActiveNav(){
+  const currentFile = (window.location.pathname.split('/').pop() || 'index.html');
+  NAV_LINKS.forEach(a => {
+    const href = a.getAttribute('href');
+    if(!href) return;
+    if(href === currentFile || (currentFile === '' && href === 'index.html')){
+      currentActiveLink?.classList?.remove(ACTIVE_LINK_CLASS);
+      a.classList.add(ACTIVE_LINK_CLASS);
+      currentActiveLink = a;
+    }
+  });
+})();
 
 // Remove the active state once the breakpoint is reached
 const resetActiveState = ()=>{
@@ -47,7 +153,7 @@ window.addEventListener('resize', ()=>{
 
 // As the user scrolls, the active link should change based on the section currently displayed on the screen.
 window.addEventListener('scroll', ()=>{
-  const sections = document.querySelectorAll('#heroHeader, #services, #works, #contact');
+  const sections = document.querySelectorAll('#heroHeader, #services, #skills, #works, #contact');
 
   // Loop through sections and check if they are visible
   sections.forEach((section) => {
@@ -64,6 +170,177 @@ window.addEventListener('scroll', ()=>{
       currentActiveLink = LINK;
     }
   });
+});
+
+// THEME TOGGLE (persists to localStorage)
+const THEME_KEY = 'preferred-theme';
+const applyTheme = (theme)=>{
+  BODY.setAttribute('data-theme', theme);
+  if (THEME_TOGGLE_BTN){
+    THEME_TOGGLE_BTN.textContent = theme === 'light' ? '🌙' : '☀️';
+    THEME_TOGGLE_BTN.setAttribute('aria-label', `Activate ${theme === 'light' ? 'dark' : 'light'} theme`);
+  }
+};
+const savedTheme = localStorage.getItem(THEME_KEY);
+if(savedTheme){
+  applyTheme(savedTheme);
+}
+THEME_TOGGLE_BTN?.addEventListener('click', ()=>{
+  const current = BODY.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  const next = current === 'light' ? 'dark' : 'light';
+  applyTheme(next);
+  localStorage.setItem(THEME_KEY, next);
+});
+
+// Typing Effect for roles (only on pages containing the elements)
+if (TYPED_ROLE_PRIMARY && TYPED_ROLE_SECONDARY){
+  const rolesPrimary = ['Web', 'Front-End', 'Creative'];
+  const rolesSecondary = ['Developer', 'Engineer', 'Designer'];
+  let roleIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let secondaryPhase = false;
+  (function typeLoop(){
+    const primaryWord = rolesPrimary[roleIndex % rolesPrimary.length];
+    const secondaryWord = rolesSecondary[roleIndex % rolesSecondary.length];
+    const currentWord = secondaryPhase ? secondaryWord : primaryWord;
+    const targetEl = secondaryPhase ? TYPED_ROLE_SECONDARY : TYPED_ROLE_PRIMARY;
+    if(!targetEl) return;
+    if(!isDeleting){
+      targetEl.textContent = currentWord.substring(0, charIndex + 1);
+      charIndex++;
+      if(charIndex === currentWord.length){
+        setTimeout(()=>{isDeleting = true;}, 1000);
+      }
+    } else {
+      targetEl.textContent = currentWord.substring(0, charIndex - 1);
+      charIndex--;
+      if(charIndex === 0){
+        isDeleting = false;
+        if(secondaryPhase){
+          roleIndex++;
+        }
+        secondaryPhase = !secondaryPhase;
+      }
+    }
+    const speed = isDeleting ? 60 : 120;
+    setTimeout(typeLoop, speed);
+  })();
+}
+
+// Dynamic tagline rotation
+const taglines = [
+  'As a front-end web developer, my passion lies in creating beautiful and intuitive user experiences.',
+  'I craft accessible, performant interfaces with clean semantic code.',
+  'I love translating design ideas into delightful real-world interactions.'
+];
+let taglineIndex = 0;
+setInterval(()=>{
+  if(!DYNAMIC_TAGLINE) return;
+  taglineIndex = (taglineIndex + 1) % taglines.length;
+  DYNAMIC_TAGLINE.style.opacity = 0;
+  setTimeout(()=>{
+    DYNAMIC_TAGLINE.textContent = taglines[taglineIndex];
+    DYNAMIC_TAGLINE.style.opacity = 1;
+  }, 400);
+}, 6000);
+
+// Skill bar animation when visible
+const skillObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const level = entry.target.getAttribute('data-level');
+      const fill = entry.target.querySelector('.skill__bar-fill');
+      if(fill){
+        requestAnimationFrame(()=>{
+          fill.style.width = level + '%';
+        });
+      }
+      skillObserver.unobserve(entry.target);
+    }
+  });
+}, {threshold: 0.3});
+SKILL_ITEMS.forEach(item => skillObserver.observe(item));
+
+// Project filtering
+WORKS_FILTER_BTNS.forEach(btn => {
+  btn.addEventListener('click', () => {
+    WORKS_FILTER_BTNS.forEach(b => b.classList.remove('works__filter-btn--active'));
+    btn.classList.add('works__filter-btn--active');
+    const filter = btn.getAttribute('data-filter');
+    WORK_ITEMS.forEach(item => {
+      const cat = item.getAttribute('data-category');
+      if(filter === 'all' || cat === filter){
+        item.style.display = '';
+        requestAnimationFrame(()=>{item.style.opacity = 1;});
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  });
+});
+
+// Modal logic
+let previousActiveElement = null;
+const openModal = (title, description, techCSV) => {
+  previousActiveElement = document.activeElement;
+  MODAL_TITLE.textContent = title;
+  MODAL_DESC.textContent = description;
+  MODAL_TECH.innerHTML = '';
+  techCSV.split(',').map(t => t.trim()).forEach(t => {
+    const span = document.createElement('span');
+    span.textContent = t;
+    MODAL_TECH.appendChild(span);
+  });
+  MODAL.classList.add('modal--open');
+  MODAL.setAttribute('aria-hidden', 'false');
+  MODAL.setAttribute('aria-modal', 'true');
+  MODAL_CLOSE_BTN.focus();
+  document.body.style.overflow = 'hidden';
+};
+const closeModal = () => {
+  MODAL.classList.remove('modal--open');
+  MODAL.setAttribute('aria-hidden', 'true');
+  MODAL.setAttribute('aria-modal', 'false');
+  document.body.style.overflow = '';
+  if(previousActiveElement) previousActiveElement.focus();
+};
+MODAL_CLOSE_BTN?.addEventListener('click', closeModal);
+MODAL?.addEventListener('click', (e)=>{ if(e.target === MODAL) closeModal(); });
+window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && MODAL.classList.contains('modal--open')) closeModal(); });
+WORK_ITEMS.forEach(item => {
+  item.addEventListener('click', ()=>{
+    openModal(
+      item.getAttribute('data-title'),
+      item.getAttribute('data-description'),
+      item.getAttribute('data-tech')
+    );
+  });
+  item.setAttribute('tabindex', '0');
+  item.addEventListener('keypress', (e)=>{ if(e.key === 'Enter') item.click(); });
+});
+
+// Scroll reveal for work items
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {threshold: 0.15});
+document.querySelectorAll('.work__reveal').forEach(el => revealObserver.observe(el));
+
+// Back to top button
+window.addEventListener('scroll', () => {
+  if(window.scrollY > 900){
+    BACK_TO_TOP_BTN.classList.add('back-to-top--visible');
+  } else {
+    BACK_TO_TOP_BTN.classList.remove('back-to-top--visible');
+  }
+});
+BACK_TO_TOP_BTN?.addEventListener('click', ()=>{
+  window.scrollTo({top:0, behavior:'smooth'});
 });
 
 // Shows & hide navbar on smaller screen
@@ -123,9 +400,17 @@ SERVICE_BOXES.forEach(service => {
   });
 });
 
-// Handles smooth scrolling
-new SweetScroll({
-  trigger: '.nav__list-link',
-  easing: 'easeOutQuint',
-  offset: NAV_BAR.getBoundingClientRect().height - 80
-});
+// Handles smooth scrolling (only hash links so normal page links navigate)
+try {
+  new SweetScroll({
+    trigger: 'a.nav__list-link[href^="#"]',
+    easing: 'easeOutQuint',
+    offset: NAV_BAR.getBoundingClientRect().height - 80
+  });
+} catch(e) { /* ignore */ }
+
+// Performance: passive event listeners for scroll where possible
+try {
+  window.addEventListener('scroll', ()=>{}, {passive:true});
+} catch (e) {/* ignore */}
+
