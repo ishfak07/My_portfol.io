@@ -84,22 +84,62 @@ COPY_EMAIL_BTN?.addEventListener('click', (e)=>{
   });
 });
 
-// Contact form (front-end only demo validation)
-CONTACT_FORM?.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  const nameVal = document.getElementById('contactNameTxt').value.trim();
-  const msgVal = document.getElementById('contactDescriptionTxt').value.trim();
-  if(!nameVal || !msgVal){
-    CONTACT_ERROR.textContent = 'Please fill in both fields.';
-    return;
-  }
-  CONTACT_ERROR.textContent = '';
-  // Simulate submit success
-  e.target.reset();
-  CONTACT_ERROR.style.color = 'var(--clr-accent)';
-  CONTACT_ERROR.textContent = 'Message queued locally (demo).';
-  setTimeout(()=>{CONTACT_ERROR.textContent=''; CONTACT_ERROR.style.color='var(--clr-danger)';}, 2500);
-});
+// Contact form submission (frontend -> API)
+if(CONTACT_FORM){
+  CONTACT_FORM.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const nameEl = document.getElementById('contactNameTxt');
+    const emailEl = document.getElementById('contactEmailTxt');
+    const msgEl = document.getElementById('contactDescriptionTxt');
+  const honeypotEl = document.getElementById('contactGotcha'); // honeypot (hidden)
+    const submitBtn = document.getElementById('contactSubmitBtn');
+    const nameVal = nameEl.value.trim();
+    const emailVal = emailEl.value.trim();
+    const msgVal = msgEl.value.trim();
+    if(honeypotEl && honeypotEl.value){
+      // bot detected silently succeed
+      CONTACT_FORM.reset();
+      return;
+    }
+    if(!nameVal || !emailVal || !msgVal){
+      CONTACT_ERROR.textContent = 'Please fill in all required fields.';
+      return;
+    }
+    // rudimentary email check
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal)){
+      CONTACT_ERROR.textContent = 'Please provide a valid email address.';
+      return;
+    }
+    CONTACT_ERROR.textContent = '';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    try {
+      const formAction = CONTACT_FORM.getAttribute('action');
+      const resp = await fetch(formAction, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ name: nameVal, email: emailVal, message: msgVal })
+      });
+      const data = await resp.json().catch(()=>({}));
+      if(!resp.ok || data.error){
+        throw new Error(data.error || 'Form submission failed');
+      }
+      CONTACT_FORM.reset();
+      CONTACT_ERROR.style.color = 'var(--clr-accent)';
+      CONTACT_ERROR.textContent = 'Message sent successfully!';
+      setTimeout(()=>{CONTACT_ERROR.textContent=''; CONTACT_ERROR.style.color='var(--clr-danger)';}, 4000);
+    } catch(err){
+      CONTACT_ERROR.textContent = 'Failed to send. Please try again later.';
+      console.error('Contact form error:', err);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send';
+    }
+  });
+}
 
 let currentServiceBG = null;
 let currentActiveLink = document.querySelector('.nav__list-link.active');
@@ -378,6 +418,7 @@ tiltCards.forEach(card => {
 
 // Back to top button
 window.addEventListener('scroll', () => {
+  if(!BACK_TO_TOP_BTN) return; // guard for pages without the button
   if(window.scrollY > 900){
     BACK_TO_TOP_BTN.classList.add('back-to-top--visible');
   } else {
