@@ -309,7 +309,7 @@ body, body[data-theme="light"]{
     position: relative;
 }
 .header__name{font-size:clamp(5.2rem,6vw,6.5rem);font-weight:900;letter-spacing:-1px;background:linear-gradient(90deg,var(--clr-accent),var(--clr-accent-alt));-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;}
-.header__subtitle{margin-top:1rem;font-size:clamp(2.2rem,4.2vw,4.2rem);font-weight:800;line-height:1;display:flex;gap:1rem;}
+.header__subtitle{margin-top:1rem;font-size:clamp(1.6rem,3.2vw,3.2rem);font-weight:800;line-height:1;display:flex;gap:.8rem;letter-spacing:-1px;}
 .header__actions{display:flex;flex-wrap:wrap;gap:1.2rem;margin-top:3.5rem;align-items:center;}
 .btn{font-family:inherit;cursor:pointer;border:none;border-radius:8px;padding:1.1rem 1.6rem;font-size:1.3rem;font-weight:700;letter-spacing:.5px;position:relative;overflow:hidden;background:var(--clr-accent);color:#111;transition:background var(--transition-fast),transform var(--transition-fast);} 
 .btn:hover{background:var(--clr-accent-alt);} 
