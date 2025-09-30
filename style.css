@@ -108,6 +108,47 @@ body, body[data-theme="light"]{
     color: var(--clr-text);
 }
 
+/* ----------------------------------
+     Global Responsive Enhancements
+     ---------------------------------- */
+/* Fluid scaling for major section titles (mobile -> desktop) */
+.section__title{font-size:clamp(3rem,9vw,5rem);} /* overridden at larger breakpoints later to 8rem */
+
+/* Fluid hero text refinements */
+.header__msg{font-size:clamp(1.4rem,2.6vw,1.8rem);} /* was fixed 1.6rem */
+
+/* Make service cards a responsive auto-fit grid instead of manual % widths */
+.service-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:4rem;margin-top:8rem;}
+.service-card__box{width:100%;max-width:unset;} /* override earlier width/percent settings */
+
+/* Tighter vertical rhythm on very small screens */
+@media (max-width:480px){
+    .section{padding-bottom:5rem;}
+    .service-cards{gap:3rem;margin-top:6rem;}
+    .header__actions{gap:.9rem;}
+    .btn{min-width:140px;padding:1.15rem 1.6rem;font-size:1.25rem;}
+}
+
+/* Slightly scale down root font on ultra-narrow devices */
+@media (max-width:340px){
+    html{font-size:58%;}
+    .header__title{font-size:clamp(3.6rem,12vw,5.2rem);} /* keep hero name readable */
+}
+
+/* Improve very large screen readability: constrain hero text width */
+@media (min-width:1400px){
+    .header__left{max-width:760px;}
+}
+
+/* Ensure images never overflow containers */
+img{max-width:100%;height:auto;}
+
+/* Contact direct items responsive spacing refinement */
+@media (max-width:520px){
+    .contact-direct__items{gap:1rem;}
+    .contact-direct__item{padding:1.2rem 1.3rem;font-size:1.25rem;}
+}
+
 .container {
     display: block;
     margin-left: auto;
@@ -676,6 +717,17 @@ body, body[data-theme="light"]{
     pointer-events: none;
     width: 100%;
 }
+.contact__illustration--photo{display:flex;align-items:flex-end;justify-content:center;position:relative;max-width:420px;min-height:340px;padding:1rem;}
+/* Neutral white glow variant replacing green */
+.contact__illustration--photo::before{content:"";position:absolute;inset:0;border-radius:28px;background:radial-gradient(circle at 45% 38%,rgba(255,255,255,.55),rgba(255,255,255,0) 68%),linear-gradient(145deg,#141414,#0e0e0e);border:1px solid rgba(255,255,255,.07);filter:blur(0);opacity:.9;z-index:-2;}
+.contact__illustration--photo::after{content:"";position:absolute;inset:0;border-radius:28px;background:linear-gradient(135deg,rgba(255,255,255,.35),transparent 65%);mix-blend-mode:overlay;opacity:.32;z-index:-1;transition:opacity .6s ease;}
+.contact__illustration--photo:hover::after{opacity:.7;}
+/* Contact photo animated reveal */
+.contact-photo{max-height:480px;width:auto;object-fit:contain;filter:drop-shadow(0 10px 28px rgba(0,0,0,.65)) drop-shadow(0 0 22px rgba(255,255,255,.35));transform-origin:center bottom;opacity:0;transform:translateY(28px) scale(.95);will-change:transform,opacity;transition:opacity 1s cubic-bezier(.16,.84,.44,1), transform 1.15s cubic-bezier(.16,.84,.44,1);} 
+.contact-photo.is-visible{opacity:1;transform:translateY(0) scale(1);animation:floatGentle 8s ease-in-out infinite, photoPulse 11s ease-in-out infinite;} 
+@keyframes photoPulse{0%,100%{filter:drop-shadow(0 10px 28px rgba(0,0,0,.65)) drop-shadow(0 0 22px rgba(255,255,255,.35));}50%{filter:drop-shadow(0 14px 34px rgba(0,0,0,.75)) drop-shadow(0 0 34px rgba(255,255,255,.55));}} 
+@media (prefers-reduced-motion:reduce){.contact-photo{transition:none;} .contact-photo.is-visible{animation:none;}} 
+@keyframes floatGentle{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 .contact__illustration::before{
     content: '';
     position: absolute;
@@ -720,6 +772,24 @@ body, body[data-theme="light"]{
     transform-origin: center;
     transition: all .35s ease-in-out;
 }
+
+/* Direct contact panel */
+.contact-direct{width:100%;margin-top:6rem;display:flex;flex-direction:column;align-items:center;gap:2.8rem;animation:fadeSlide .9s cubic-bezier(.16,.84,.44,1);}
+.contact-direct__title{font-size:3.2rem;font-weight:800;position:relative;padding-bottom:1.2rem;}
+.contact-direct__title::after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:200px;max-width:75%;border-bottom:3px dashed var(--clr-accent);} 
+.contact-direct__items{display:grid;gap:1.5rem;width:100%;max-width:520px;} 
+.contact-direct__item{--item-bg:linear-gradient(140deg,var(--clr-bg-alt) 0%,#151515 100%);text-decoration:none;display:flex;align-items:center;gap:1.2rem;padding:1.4rem 1.6rem;border:1px solid var(--clr-border);border-radius:14px;background:var(--item-bg);position:relative;overflow:hidden;font-weight:600;font-size:1.35rem;letter-spacing:.3px;color:var(--clr-text);transition:background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-medium);} 
+.contact-direct__item::before{content:attr(data-label);position:absolute;top:8px;right:12px;font-size:.95rem;font-weight:700;letter-spacing:1px;opacity:.35;text-transform:uppercase;pointer-events:none;} 
+.contact-direct__item::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 25% 20%,rgba(0,255,148,.18),transparent 65%);opacity:0;transition:opacity var(--transition-medium);} 
+.contact-direct__item:hover{border-color:var(--clr-accent);transform:translateY(-4px);} 
+.contact-direct__item:hover::after{opacity:.85;} 
+.contact-direct__icon{width:42px;height:42px;border-radius:12px;background:var(--clr-bg);display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:700;border:1px solid var(--clr-border);color:var(--clr-accent);position:relative;box-shadow:0 4px 14px -4px rgba(0,0,0,.6);transition:background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);} 
+.contact-direct__item:hover .contact-direct__icon{background:var(--clr-accent);color:#111;border-color:var(--clr-accent);} 
+.contact-direct__text{word-break:break-all;} 
+@media (min-width:780px){
+    .contact-direct__items{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
+}
+@keyframes fadeSlide{0%{opacity:0;transform:translateY(25px);}100%{opacity:1;transform:translateY(0);}}
 
 /*
  * ==================
@@ -794,21 +864,8 @@ body, body[data-theme="light"]{
     .container {
         max-width: 760px;
     }
-    .service-cards{
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        width: 100%;
-    }
-    .service-card__box{
-        width: 28%;
-        max-width: 350px;
-    }
-    .service-card__illustration{
-        width: 100%;
-        max-width: 150px;
-        height: 150px;
-    }
+    /* Grid already handles layout; only tweak illustration sizing */
+    .service-card__illustration{max-width:140px;height:140px;margin-left:auto;margin-right:auto;}
 }
 
 /*
@@ -820,9 +877,7 @@ body, body[data-theme="light"]{
     .container {
         max-width: 960px;
     }
-    .section__title{
-        font-size: 8rem;
-    }
+    .section__title{font-size:clamp(5.2rem,6vw,8rem);} /* smooth scale into large sizes */
     .about{grid-template-columns:minmax(0,2fr) minmax(0,1fr);align-items:start;}
     /* Works: allow grid sizing */
     .work{width:auto;}

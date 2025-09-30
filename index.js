@@ -141,6 +141,21 @@ if(CONTACT_FORM){
   });
 }
 
+// Contact portrait animation (only on contact page)
+(()=>{
+  const photo = document.querySelector('.contact-photo');
+  if(!photo || !('IntersectionObserver' in window)) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if(en.isIntersecting){
+        photo.classList.add('is-visible');
+        obs.disconnect();
+      }
+    });
+  }, {threshold:.35});
+  obs.observe(photo);
+})();
+
 let currentServiceBG = null;
 let currentActiveLink = document.querySelector('.nav__list-link.active');
 
