@@ -535,6 +535,10 @@ body, body[data-theme="light"]{
 .modal__description{margin-top:1.5rem; line-height:1.7; font-size:1.4rem; font-weight:500;}
 .modal__tech{margin-top:2rem; display:flex; flex-wrap:wrap; gap:.7rem;}
 .modal__tech span{background:var(--clr-bg); border:1px solid var(--clr-border); padding:.5rem .9rem; border-radius:8px; font-size:1.1rem; font-weight:600; letter-spacing:.5px;}
+.modal__features{margin-top:2rem; list-style:disc; padding-left:1.6rem; display:grid; gap:.6rem; font-size:1.25rem; line-height:1.45; max-height:240px; overflow:auto; scrollbar-width:thin;}
+.modal__features li{background:var(--clr-bg); border:1px dashed var(--clr-border); padding:.55rem .9rem; border-radius:8px; list-style:disc;}
+.modal__actions{margin-top:2.4rem; display:flex; justify-content:flex-end;}
+.modal__actions .btn{font-size:1.2rem;}
 
 /* Back To Top */
 .back-to-top{position:fixed; bottom:2.5rem; right:2rem; width:48px; height:48px; border-radius:50%; background:var(--clr-accent); color:#111; display:flex; align-items:center; justify-content:center; border:none; font-size:2rem; cursor:pointer; box-shadow:0 10px 28px -10px rgba(0,0,0,.5); opacity:0; visibility:hidden; transform:translateY(15px); transition:opacity var(--transition-medium), transform var(--transition-medium), visibility var(--transition-medium);} 

@@ -16,6 +16,8 @@ const MODAL_CLOSE_BTN = document.getElementById('modalCloseBtn');
 const MODAL_TITLE = document.getElementById('modalProjectTitle');
 const MODAL_DESC = document.getElementById('modalProjectDescription');
 const MODAL_TECH = document.getElementById('modalProjectTech');
+const MODAL_FEATURES = document.getElementById('modalProjectFeatures');
+const MODAL_REPO_LINK = document.getElementById('modalProjectRepoLink');
 const BACK_TO_TOP_BTN = document.getElementById('backToTopBtn');
 const CURRENT_YEAR_SPAN = document.getElementById('currentYear');
 const TYPED_ROLE_PRIMARY = document.getElementById('typedRolePrimary');
@@ -118,28 +120,21 @@ let currentActiveLink = document.querySelector('.nav__list-link.active');
 
 // Remove the active state once the breakpoint is reached
 const resetActiveState = ()=>{
+  if(!NAV_LIST) return;
   NAV_LIST.classList.remove('nav--active');
-  Object.assign(NAV_LIST.style, {
-    height: null
-  });
-  Object.assign(document.body.style, {
-    overflowY: null
-  });
-}
+  if(NAV_LIST.style){
+    NAV_LIST.style.height = null;
+  }
+  document.body.style.overflowY = null;
+};
 
 //Add padding to the header to make it visible because navbar has a fixed position.
 const addPaddingToHeroHeaderFn = () => {
+  if(!NAV_BAR || !HERO_HEADER) return;
+  if(NAV_LIST && NAV_LIST.classList.contains('nav--active')) return;
   const NAV_BAR_HEIGHT = NAV_BAR.getBoundingClientRect().height;
-  const HEIGHT_IN_REM = NAV_BAR_HEIGHT / 10;
-
-  // If hamburger button is active, do not add padding
-  if (NAV_LIST.classList.contains('nav--active')) {
-    return;
-  }
-  Object.assign(HERO_HEADER.style, {
-    paddingTop: HEIGHT_IN_REM + 'rem'
-  });
-}
+  HERO_HEADER.style.paddingTop = (NAV_BAR_HEIGHT / 10) + 'rem';
+};
 addPaddingToHeroHeaderFn();
 window.addEventListener('resize', ()=>{
   addPaddingToHeroHeaderFn();
@@ -153,21 +148,19 @@ window.addEventListener('resize', ()=>{
 
 // As the user scrolls, the active link should change based on the section currently displayed on the screen.
 window.addEventListener('scroll', ()=>{
+  if(!NAV_BAR) return; // skip if nav not present on this page
   const sections = document.querySelectorAll('#heroHeader, #services, #skills, #works, #contact');
-
-  // Loop through sections and check if they are visible
-  sections.forEach((section) => {
+  sections.forEach(section => {
     const sectionTop = section.offsetTop;
     const NAV_BAR_HEIGHT = NAV_BAR.getBoundingClientRect().height;
-    if (window.scrollY >= sectionTop - NAV_BAR_HEIGHT) {
+    if(window.scrollY >= sectionTop - NAV_BAR_HEIGHT){
       const ID = section.getAttribute('id');
-      const LINK = NAV_LINKS.filter(link => {
-        return link.href.includes('#'+ID);
-      })[0];
-      console.log(LINK);
-      currentActiveLink.classList.remove(ACTIVE_LINK_CLASS);
-      LINK.classList.add(ACTIVE_LINK_CLASS);
-      currentActiveLink = LINK;
+      const LINK = NAV_LINKS.find(link => link.href.includes('#'+ID));
+      if(LINK && currentActiveLink !== LINK){
+        currentActiveLink?.classList?.remove(ACTIVE_LINK_CLASS);
+        LINK.classList.add(ACTIVE_LINK_CLASS);
+        currentActiveLink = LINK;
+      }
     }
   });
 });
@@ -282,7 +275,7 @@ WORKS_FILTER_BTNS.forEach(btn => {
 
 // Modal logic
 let previousActiveElement = null;
-const openModal = (title, description, techCSV) => {
+const openModal = (title, description, techCSV, featuresCSV, repoUrl) => {
   previousActiveElement = document.activeElement;
   MODAL_TITLE.textContent = title;
   MODAL_DESC.textContent = description;
@@ -292,6 +285,26 @@ const openModal = (title, description, techCSV) => {
     span.textContent = t;
     MODAL_TECH.appendChild(span);
   });
+  if(MODAL_FEATURES){
+    MODAL_FEATURES.innerHTML = '';
+    if(featuresCSV){
+      featuresCSV.split('|').map(f=>f.trim()).forEach(f=>{
+        if(!f) return;
+        const li = document.createElement('li');
+        li.textContent = f;
+        MODAL_FEATURES.appendChild(li);
+      });
+    }
+    MODAL_FEATURES.style.display = MODAL_FEATURES.children.length ? '' : 'none';
+  }
+  if(MODAL_REPO_LINK){
+    if(repoUrl){
+      MODAL_REPO_LINK.href = repoUrl;
+      MODAL_REPO_LINK.style.display = '';
+    } else {
+      MODAL_REPO_LINK.style.display = 'none';
+    }
+  }
   MODAL.classList.add('modal--open');
   MODAL.setAttribute('aria-hidden', 'false');
   MODAL.setAttribute('aria-modal', 'true');
@@ -313,7 +326,9 @@ WORK_ITEMS.forEach(item => {
     openModal(
       item.getAttribute('data-title'),
       item.getAttribute('data-description'),
-      item.getAttribute('data-tech')
+      item.getAttribute('data-tech'),
+      item.getAttribute('data-features'),
+      item.getAttribute('data-url')
     );
   });
   item.setAttribute('tabindex', '0');
@@ -344,24 +359,18 @@ BACK_TO_TOP_BTN?.addEventListener('click', ()=>{
 });
 
 // Shows & hide navbar on smaller screen
-HAMBURGER_BTN.addEventListener('click', ()=>{
-  NAV_LIST.classList.toggle('nav--active');
-  if (NAV_LIST.classList.contains('nav--active')) {
-    Object.assign(document.body.style, {
-      overflowY: 'hidden'
-    });
-    Object.assign(NAV_LIST.style, {
-      height: '100vh'
-    });
-    return;
-  }
-  Object.assign(NAV_LIST.style, {
-    height: 0
+if(HAMBURGER_BTN && NAV_LIST){
+  HAMBURGER_BTN.addEventListener('click', ()=>{
+    NAV_LIST.classList.toggle('nav--active');
+    if (NAV_LIST.classList.contains('nav--active')) {
+      document.body.style.overflowY = 'hidden';
+      NAV_LIST.style.height = '100vh';
+      return;
+    }
+    NAV_LIST.style.height = 0;
+    document.body.style.overflowY = null;
   });
-  Object.assign(document.body.style, {
-    overflowY: null
-  });
-});
+}
 
 // When navbar link is clicked, reset the active state
 NAV_LINKS.forEach(link => {
@@ -405,7 +414,7 @@ try {
   new SweetScroll({
     trigger: 'a.nav__list-link[href^="#"]',
     easing: 'easeOutQuint',
-    offset: NAV_BAR.getBoundingClientRect().height - 80
+    offset: NAV_BAR ? NAV_BAR.getBoundingClientRect().height - 80 : 0
   });
 } catch(e) { /* ignore */ }
 
