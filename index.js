@@ -27,7 +27,6 @@ const EXPERIENCE_TIMELINE = document.getElementById('experienceTimeline');
 const EDUCATION_LIST = document.getElementById('educationList');
 const CERT_LIST = document.getElementById('certList');
 const AWARDS_LIST = document.getElementById('awardsList');
-const PRINT_RESUME_BTN = document.getElementById('printResumeBtn');
 const COPY_EMAIL_BTN = document.getElementById('copyEmailBtn');
 const CONTACT_FORM = document.querySelector('.contact__form');
 const CONTACT_ERROR = document.getElementById('contactFormError');
@@ -73,8 +72,7 @@ renderEducation();
 renderCerts();
 renderAwards();
 
-// Utility interactions
-PRINT_RESUME_BTN?.addEventListener('click', ()=>{ window.print(); });
+// Utility interactions (print button removed)
 COPY_EMAIL_BTN?.addEventListener('click', (e)=>{
   const email = e.currentTarget.getAttribute('data-email');
   if(!email) return;
