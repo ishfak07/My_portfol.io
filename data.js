@@ -5,7 +5,7 @@ window.PORTFOLIO_DATA = {
   experience: [
     {
       company: 'Imara Software Solutions',
-      role: 'Software Engineer Intern',
+      role: 'ssoftware Engineer Intern',
       location: 'Puttalam, North Western Province, Sri Lanka',
       start: 'September 2025',
       end: 'Present',
