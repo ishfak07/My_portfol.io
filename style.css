@@ -212,32 +212,71 @@ img{max-width:100%;height:auto;}
     max-width: 1200px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 .nav__hamburger-btn {
-    display: none !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
+.nav__hamburger-btn span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #59FFB9;
+    border-radius: 3px;
+    transition: all 0.3s ease;
 }
 .nav__theme-toggle {
-    order: 2;
-    margin-left: 2rem;
+    margin-left: 1rem;
+    background: var(--clr-bg-alt);
+    border: 2px solid var(--clr-border);
+    color: var(--clr-text);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+.nav__theme-toggle:hover {
+    background: var(--clr-accent);
+    color: #111;
 }
 .nav__list{
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: flex-end;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(17, 17, 17, 0.98);
+    backdrop-filter: blur(25px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    height: auto !important;
-    overflow-y: visible !important;
-    gap: 0;
-    order: 1;
+    gap: 3rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    padding-top: 80px;
+}
+.nav__list.nav--active {
+    transform: translateX(0);
 }
 .nav__list-item {
     text-align: center;
-    margin-bottom: 0;
-    margin-right: 2.5rem;
-}
-.nav__list-item:last-of-type {
-    margin-right: 0;
+    margin: 0;
 }
 .nav__list-link {
     color: #688277;
@@ -245,9 +284,10 @@ img{max-width:100%;height:auto;}
     font-weight: 800;
     text-decoration: none;
     outline: none;
-    font-size: 1.6rem !important;
+    font-size: 2rem !important;
     white-space: nowrap;
     display: inline-block;
+    transition: color 0.3s ease;
 }
 .nav__list-link::before {
     content: '';
@@ -823,6 +863,40 @@ img{max-width:100%;height:auto;}
 
     /* Works: remove legacy width so grid can auto-flow */
     .work{width:auto;}
+}
+
+/* Desktop Navigation - 768px and up */
+@media only screen and (min-width: 48em) {
+    .nav__hamburger-btn {
+        display: none !important;
+    }
+    .nav .container {
+        justify-content: flex-end;
+    }
+    .nav__list {
+        position: static;
+        height: auto;
+        width: auto;
+        background: transparent;
+        backdrop-filter: none;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 0;
+        transform: translateX(0);
+        padding-top: 0;
+    }
+    .nav__list-item {
+        margin-right: 2.5rem;
+    }
+    .nav__list-item:last-of-type {
+        margin-right: 0;
+    }
+    .nav__list-link {
+        font-size: 1.6rem !important;
+    }
+    .nav__theme-toggle {
+        margin-left: 2rem;
+    }
 }
 
 /*
