@@ -991,8 +991,11 @@ img{max-width:100%;height:auto;}
 .work__box:hover .work-thumb--task svg .wt-check{stroke-width:4;filter:drop-shadow(0 0 8px rgba(0,255,148,.8));}
 .work-thumb--portfolio svg circle{animation:floatPanels 7s ease-in-out infinite .5s;}
 .work__box:hover .work-thumb--portfolio svg .wt-ring{stroke-width:3;animation-duration:3s;}
-.work-thumb--design svg .wt-accent{animation:pulseAccent 3s ease-in-out infinite;}
-.work__box:hover .work-thumb--design svg .wt-accent{animation:glow-pulse 0.8s ease-in-out infinite;transform:scale(1.15);}
+.work-thumb--design svg .wt-accent{animation:orbit-circle 4s ease-in-out infinite;}
+.work-thumb--design svg .wt-pane{animation:wave-effect 3s ease-in-out infinite;}
+.work-thumb--design svg .wt-ring{animation:expand-ring 2.5s ease-in-out infinite;}
+.work__box:hover .work-thumb--design svg .wt-accent{animation:orbit-circle 1.5s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(34,211,238,.9));}
+.work__box:hover .work-thumb--design svg .wt-pane{animation:wave-effect 1s ease-in-out infinite;}
 .work-thumb--notes svg rect:first-of-type{animation:tilt 5s ease-in-out infinite;}
 .work__box:hover .work-thumb--notes svg .wt-stack{transform:scale(1.05);transition:transform 0.4s ease;}
 @keyframes floatPanels{0%,100%{transform:translateY(0) scale(1)}25%{transform:translateY(-8px) scale(1.02)}50%{transform:translateY(-12px) scale(1.03)}75%{transform:translateY(-8px) scale(1.02)}}
@@ -1005,6 +1008,9 @@ img{max-width:100%;height:auto;}
 @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 @keyframes bounce-gentle{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
 @keyframes glow-pulse{0%,100%{filter:drop-shadow(0 0 8px rgba(99,102,241,.3))}50%{filter:drop-shadow(0 0 20px rgba(139,92,246,.8))}}
+@keyframes orbit-circle{0%{transform:translate(0,0) scale(1)}25%{transform:translate(8px,-8px) scale(1.1)}50%{transform:translate(0,-12px) scale(1.15)}75%{transform:translate(-8px,-8px) scale(1.1)}100%{transform:translate(0,0) scale(1)}}
+@keyframes wave-effect{0%,100%{transform:translateX(0) scaleY(1)}33%{transform:translateX(-5px) scaleY(1.05)}66%{transform:translateX(5px) scaleY(0.95)}}
+@keyframes expand-ring{0%,100%{transform:scale(1);opacity:.55}50%{transform:scale(1.2);opacity:.8}}
 
 /* Interactive tilt (JS optional fallback) */
 [data-tilt]{transform-style:preserve-3d;will-change:transform;transition:transform .5s cubic-bezier(.16,.84,.44,1);} 
