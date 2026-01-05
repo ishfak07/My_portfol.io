@@ -9,7 +9,7 @@ window.PORTFOLIO_DATA = {
       Location: 'Puttalam, North Western Province, Sri Lanka',
       Start: 'Jan 2026',
       End: 'Present',
-      highlights: [
+      Highlights: [
         'Managing and supporting IT-related activities and digital platforms',
         'Designing posters, banners, and visual content for events and announcements',
         'Handling media content including photo and video editing',
