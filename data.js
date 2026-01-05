@@ -7,7 +7,7 @@ window.PORTFOLIO_DATA = {
       Organization : 'Tremendous 20 – Alumni Association of A/L 2020',
       Position : 'IT & Media Committee',
       Location: 'Puttalam, North Western Province, Sri Lanka',
-      start: 'Jan 2026',
+      Start: 'Jan 2026',
       end: 'Present',
       highlights: [
         'Managing and supporting IT-related activities and digital platforms',
