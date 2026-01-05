@@ -4,6 +4,20 @@
 window.PORTFOLIO_DATA = {
   experience: [
     {
+      Organization : 'Tremendous 20 – Alumni Association of A/L 2020',
+      : 'IT & Media Committee',
+      location: 'Puttalam, North Western Province, Sri Lanka',
+      start: 'Jan 2026',
+      end: 'Present',
+      highlights: [
+        'Managing and supporting IT-related activities and digital platforms',
+        'Designing posters, banners, and visual content for events and announcements',
+        'Handling media content including photo and video editing',
+        'Supporting social media presence and digital communications',
+        'Collaborating with committee members for event promotions and alumni engagement'
+      ]
+    },
+    {
       company: 'Imara Software Solutions',
       role: 'ssoftware Engineer Intern',
       location: 'Puttalam, North Western Province, Sri Lanka',
