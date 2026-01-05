@@ -22,7 +22,7 @@ window.PORTFOLIO_DATA = {
       Position: 'ssoftware Engineer Intern',
       Location: 'Puttalam, North Western Province, Sri Lanka',
       Start: 'September 2025',
-      end: 'Present',
+      End: 'Present',
       highlights: [
         'Contribute to coding, testing, and documentation of software solutions',
         'Collaborate with senior engineers to adopt best practices',
