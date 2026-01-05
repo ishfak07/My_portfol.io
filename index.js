@@ -70,12 +70,30 @@ function renderAwards(){
 }
 function renderGallery(){
   if(!GALLERY_GRID || !DATA.gallery) return;
-  GALLERY_GRID.innerHTML = DATA.gallery.map(item => `
-    <div class="gallery-item">
-      <img src="${item.src}" alt="${item.caption}" loading="lazy" class="gallery-img">
+  GALLERY_GRID.innerHTML = DATA.gallery.map((item, index) => `
+    <div class="gallery-item" data-aos="fade-up" data-aos-delay="${index * 100}">
+      <a href="${item.src}" class="glightbox" data-gallery="gallery" data-description="${item.caption}">
+        <img src="${item.src}" alt="${item.caption}" loading="lazy" class="gallery-img">
+        <div class="gallery-overlay">
+          <span class="gallery-view-icon">🔍</span>
+        </div>
+      </a>
       <p class="gallery-caption">${item.caption}</p>
     </div>
   `).join('');
+  
+  // Initialize GLightbox after rendering
+  if(typeof GLightbox !== 'undefined'){
+    const lightbox = GLightbox({
+      touchNavigation: true,
+      loop: true,
+      autoplayVideos: true,
+      zoomable: true,
+      draggable: true,
+      dragAutoSnap: true,
+      preload: true
+    });
+  }
 }
 renderExperience();
 renderEducation();
