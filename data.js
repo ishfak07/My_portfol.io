@@ -4,12 +4,12 @@
 window.PORTFOLIO_DATA = {
   experience: [
     {
-      Organization : 'Tremendous 20 – Alumni Association of A/L 2020',
-      Position : 'IT & Media Committee',
-      Location: 'Puttalam, North Western Province, Sri Lanka',
-      Start: 'Jan 2026',
-      End: 'Present',
-      Highlights: [
+      company: 'Tremendous 20 – Alumni Association of A/L 2020',
+      role: 'IT & Media Committee',
+      location: 'Puttalam, North Western Province, Sri Lanka',
+      start: 'Jan 2026',
+      end: 'Present',
+      highlights: [
         'Managing and supporting IT-related activities and digital platforms',
         'Designing posters, banners, and visual content for events and announcements',
         'Handling media content including photo and video editing',
@@ -18,12 +18,12 @@ window.PORTFOLIO_DATA = {
       ]
     },
     {
-      Company: 'Imara Software Solutions',
-      Position: 'ssoftware Engineer Intern',
-      Location: 'Puttalam, North Western Province, Sri Lanka',
-      Start: 'September 2025',
-      End: 'Present',
-      Highlights: [
+      company: 'Imara Software Solutions',
+      role: 'Software Engineer Intern',
+      location: 'Puttalam, North Western Province, Sri Lanka',
+      start: 'September 2025',
+      end: 'Present',
+      highlights: [
         'Contribute to coding, testing, and documentation of software solutions',
         'Collaborate with senior engineers to adopt best practices',
         'Assist in troubleshooting, feature improvements, and reliability enhancements',
@@ -60,5 +60,19 @@ window.PORTFOLIO_DATA = {
     'Graphic Design',
     'Digital Illustration',
     'Visual Communication'
+  ],
+  gallery: [
+    {
+      src: './assets/gallery/1.png',
+      caption: 'Officially Graduated - BSc (Hons) Computer Science'
+    },
+    {
+      src: './assets/gallery/2.jpeg',
+      caption: 'Tremendous 20 EXCO 2026/27 - IT & Media Committee'
+    },
+    {
+      src: './assets/gallery/3.png',
+      caption: 'Graduation Celebration - NSBM Green University'
+    }
   ]
 };

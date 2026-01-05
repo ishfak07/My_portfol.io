@@ -27,6 +27,7 @@ const EXPERIENCE_TIMELINE = document.getElementById('experienceTimeline');
 const EDUCATION_LIST = document.getElementById('educationList');
 const CERT_LIST = document.getElementById('certList');
 const AWARDS_LIST = document.getElementById('awardsList');
+const GALLERY_GRID = document.getElementById('galleryGrid');
 const COPY_EMAIL_BTN = document.getElementById('copyEmailBtn');
 const CONTACT_FORM = document.querySelector('.contact__form');
 const CONTACT_ERROR = document.getElementById('contactFormError');
@@ -67,10 +68,20 @@ function renderAwards(){
   if(!AWARDS_LIST || !DATA.awards) return;
   AWARDS_LIST.innerHTML = DATA.awards.map(a => `<li>${a}</li>`).join('');
 }
+function renderGallery(){
+  if(!GALLERY_GRID || !DATA.gallery) return;
+  GALLERY_GRID.innerHTML = DATA.gallery.map(item => `
+    <div class="gallery-item">
+      <img src="${item.src}" alt="${item.caption}" loading="lazy" class="gallery-img">
+      <p class="gallery-caption">${item.caption}</p>
+    </div>
+  `).join('');
+}
 renderExperience();
 renderEducation();
 renderCerts();
 renderAwards();
+renderGallery();
 
 // Utility interactions (print button removed)
 COPY_EMAIL_BTN?.addEventListener('click', (e)=>{
