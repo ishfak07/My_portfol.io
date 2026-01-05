@@ -23,7 +23,7 @@ window.PORTFOLIO_DATA = {
       Location: 'Puttalam, North Western Province, Sri Lanka',
       Start: 'September 2025',
       End: 'Present',
-      highlights: [
+      Highlights: [
         'Contribute to coding, testing, and documentation of software solutions',
         'Collaborate with senior engineers to adopt best practices',
         'Assist in troubleshooting, feature improvements, and reliability enhancements',
