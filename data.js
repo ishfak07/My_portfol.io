@@ -19,7 +19,7 @@ window.PORTFOLIO_DATA = {
     },
     {
       Company: 'Imara Software Solutions',
-      role: 'ssoftware Engineer Intern',
+      Position: 'ssoftware Engineer Intern',
       location: 'Puttalam, North Western Province, Sri Lanka',
       start: 'September 2025',
       end: 'Present',
