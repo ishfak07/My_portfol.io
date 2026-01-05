@@ -5,7 +5,7 @@ window.PORTFOLIO_DATA = {
   experience: [
     {
       Organization : 'Tremendous 20 – Alumni Association of A/L 2020',
-      : 'IT & Media Committee',
+      Position : 'IT & Media Committee',
       location: 'Puttalam, North Western Province, Sri Lanka',
       start: 'Jan 2026',
       end: 'Present',
