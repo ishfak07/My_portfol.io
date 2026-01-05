@@ -28,6 +28,7 @@ const EDUCATION_LIST = document.getElementById('educationList');
 const CERT_LIST = document.getElementById('certList');
 const AWARDS_LIST = document.getElementById('awardsList');
 const GALLERY_GRID = document.getElementById('galleryGrid');
+const CERTIFICATE_GALLERY = document.getElementById('certificateGallery');
 const COPY_EMAIL_BTN = document.getElementById('copyEmailBtn');
 const CONTACT_FORM = document.querySelector('.contact__form');
 const CONTACT_ERROR = document.getElementById('contactFormError');
@@ -95,11 +96,50 @@ function renderGallery(){
     });
   }
 }
+function renderCertificateGallery(){
+  if(!CERTIFICATE_GALLERY || !DATA.certificateImages) return;
+  CERTIFICATE_GALLERY.innerHTML = DATA.certificateImages.map((item, index) => `
+    <div class="gallery-item" data-aos="fade-up" data-aos-delay="${index * 100}">
+      <a href="${item.src}" class="glightbox" data-gallery="certificates" data-description="${item.caption}">
+        <img src="${item.src}" alt="${item.caption}" loading="lazy" class="gallery-img">
+        <div class="gallery-overlay">
+          <span class="gallery-view-icon">🔍</span>
+        </div>
+      </a>
+      <p class="gallery-caption">${item.caption}</p>
+    </div>
+  `).join('');
+  
+  // Initialize GLightbox after rendering
+  if(typeof GLightbox !== 'undefined'){
+    const lightbox = GLightbox({
+      touchNavigation: true,
+      loop: true,
+      autoplayVideos: true,
+      zoomable: true,
+      draggable: true,
+      dragAutoSnap: true,
+      preload: true
+    });
+  }
+}
 renderExperience();
 renderEducation();
 renderCerts();
 renderAwards();
 renderGallery();
+renderCertificateGallery();
+
+// Initialize AOS (Animate On Scroll)
+if(typeof AOS !== 'undefined'){
+  AOS.init({
+    duration: 800,
+    easing: 'ease-out-cubic',
+    once: false,
+    mirror: true,
+    offset: 100
+  });
+}
 
 // Utility interactions (print button removed)
 COPY_EMAIL_BTN?.addEventListener('click', (e)=>{

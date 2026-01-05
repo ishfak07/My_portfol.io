@@ -1741,6 +1741,88 @@ img{max-width:100%;height:auto;}
     color: var(--clr-text);
     text-align: center;
     font-weight: 500;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(168, 85, 247, 0.05));
+    border-radius: 0 0 1rem 1rem;
+    margin-top: -0.5rem;
+    position: relative;
+    overflow: hidden;
+    animation: captionPulse 4s ease-in-out infinite;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.gallery-caption::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.4), transparent);
+    animation: captionShine 3s ease-in-out infinite;
+}
+
+@keyframes captionPulse {
+    0%, 100% {
+        transform: translateY(0) rotateX(0deg) scale(1);
+        box-shadow: 0 0 0 rgba(99, 102, 241, 0);
+    }
+    25% {
+        transform: translateY(-3px) rotateX(2deg) scale(1.02);
+        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+    }
+    50% {
+        transform: translateY(-5px) rotateX(0deg) scale(1.03);
+        box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+    }
+    75% {
+        transform: translateY(-3px) rotateX(-2deg) scale(1.02);
+        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+    }
+}
+
+@keyframes captionShine {
+    0% {
+        left: -100%;
+    }
+    50%, 100% {
+        left: 200%;
+    }
+}
+
+.gallery-item:nth-child(1) .gallery-caption { animation-delay: 0s; }
+.gallery-item:nth-child(2) .gallery-caption { animation-delay: 0.4s; }
+.gallery-item:nth-child(3) .gallery-caption { animation-delay: 0.8s; }
+.gallery-item:nth-child(4) .gallery-caption { animation-delay: 1.2s; }
+.gallery-item:nth-child(5) .gallery-caption { animation-delay: 1.6s; }
+.gallery-item:nth-child(6) .gallery-caption { animation-delay: 2s; }
+
+.gallery-item:nth-child(1) .gallery-caption::before { animation-delay: 0.2s; }
+.gallery-item:nth-child(2) .gallery-caption::before { animation-delay: 0.6s; }
+.gallery-item:nth-child(3) .gallery-caption::before { animation-delay: 1s; }
+.gallery-item:nth-child(4) .gallery-caption::before { animation-delay: 1.4s; }
+.gallery-item:nth-child(5) .gallery-caption::before { animation-delay: 1.8s; }
+.gallery-item:nth-child(6) .gallery-caption::before { animation-delay: 2.2s; }
+
+.gallery-item:hover .gallery-caption {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+    color: var(--clr-accent);
+    font-weight: 600;
+    animation: captionHover 0.6s ease-out forwards;
+    text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+@keyframes captionHover {
+    0% {
+        transform: translateY(0) rotateX(0deg) scale(1);
+    }
+    50% {
+        transform: translateY(-8px) rotateX(5deg) scale(1.08);
+    }
+    100% {
+        transform: translateY(-6px) rotateX(3deg) scale(1.05);
+        box-shadow: 0 12px 35px rgba(99, 102, 241, 0.6);
+    }
 }
 
 /* GLightbox Custom Styling */

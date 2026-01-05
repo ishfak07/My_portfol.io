@@ -53,6 +53,28 @@ window.PORTFOLIO_DATA = {
     'Graphic and Digital Designing',
     'Computer Hardware'
   ],
+  certificateImages: [
+    {
+      src: './assets/Certificates/cpics.jpg',
+      caption: 'CPICS (Similar NVQ Level 4 Syllabus)'
+    },
+    {
+      src: './assets/Certificates/computer application assistant.jpg',
+      caption: 'Computer Application Assistant'
+    },
+    {
+      src: './assets/Certificates/diploma ca.jpg',
+      caption: 'Diploma in Computer Application'
+    },
+    {
+      src: './assets/Certificates/Graphic design.jpg',
+      caption: 'Graphic and Digital Designing'
+    },
+    {
+      src: './assets/Certificates/computer hardware.jpg',
+      caption: 'Computer Hardware'
+    }
+  ],
   awards: [
     'BSc (Hons) Computer Science | Second Class (Lower Division)'
   ],
@@ -68,11 +90,11 @@ window.PORTFOLIO_DATA = {
     },
     {
       src: './assets/gallery/2.jpeg',
-      caption: 'Tremendous 20 EXCO 2026/27 - IT & Media Committee'
+      caption: 'Graduation Celebration - NSBM Green University'
     },
     {
       src: './assets/gallery/3.png',
-      caption: 'Graduation Celebration - NSBM Green University'
+      caption: 'Tremendous 20 EXCO 2026/27 - IT & Media Committee'
     }
   ]
 };
