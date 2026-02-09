@@ -89,11 +89,11 @@ window.PORTFOLIO_DATA = {
       caption: 'Officially Graduated - BSc (Hons) Computer Science'
     },
     {
-      src: './assets/gallery/2.jpeg',
+      src: './assets/gallery/3.jpeg',
       caption: 'Graduation Celebration - NSBM Green University'
     },
     {
-      src: './assets/gallery/3.png',
+      src: './assets/gallery/2.png',
       caption: 'Tremendous 20 EXCO 2026/27 - IT & Media Committee'
     }
   ]
