@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,100&display=swap"
+          rel="stylesheet">
+
+    <!-- JavaScript Libraries -->
+    <script src="https://unpkg.com/sweet-scroll/sweet-scroll.min.js"></script>
+
+    <!-- CSS & JS -->
+    <link rel="stylesheet" href="./style.css"/>
+    <script src="./data.js" defer></script>
+    <script src="./index.js" defer></script>
+
+    <!-- Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of M. I. F. Ishfaque – Software Engineer | BSc (Hons) Computer Science | MERN | ERP | FRAPPE | Agile | Web & QA Testing"/>
+    <meta name="keywords" content="Software Engineer, MERN, ERP, FRAPPE, Agile, QA Testing, Portfolio, Ishfaque"/>
+    <meta name="author" content="M. I. F. Ishfaque" />
+    <meta property="og:title" content="M. I. F. Ishfaque | Software Engineer" />
+    <meta property="og:description" content="Software Engineer – MERN, ERP, FRAPPE, Agile Methodology, Web & QA Testing." />
+    <meta property="og:type" content="website" />
+    <title>M. I. F. Ishfaque | Software Engineer Portfolio</title>
+    <!-- Brand Logo -->
+    <link rel="icon" type="image/png" href="Ri title image.jpg" sizes="192x192">
+    <meta property="og:image" content="https://your-domain.example/ri-logo.png" />
+
+    <!-- Icons -->
+    <link rel="icon" href="./favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./assets/icons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./assets/icons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./assets/icons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./assets/icons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/icons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/icons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./assets/icons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="./assets/icons/apple-touch-icon-57x57.png">
+</head>
+<body>
+<main>
+    <!-- Hero Header -->
+    <header id="heroHeader" class="hero-header">
+        <nav id="navBar" class="nav">
+            <div class="container">
+                <button type="button" id="hamburgerBtn" class="nav__hamburger-btn">
+                    <span class="nav__hamburger-top"></span>
+                    <span class="nav__hamburger-center"></span>
+                    <span class="nav__hamburger-bottom"></span>
+                </button>
+                <button type="button" id="themeToggleBtn" class="nav__theme-toggle" aria-label="Toggle dark / light theme" title="Toggle theme">🌙</button>
+                <ul id="navList" class="nav__list">
+                    <li class="nav__list-item"><a class="nav__list-link active" href="index.html">&lt;Home &sol;/&gt;</a></li>
+                    <li class="nav__list-item"><a class="nav__list-link" href="about.html">&lt;About &sol;/&gt;</a></li>
+                    <li class="nav__list-item"><a class="nav__list-link" href="projects.html">&lt;Projects &sol;/&gt;</a></li>
+                    <li class="nav__list-item"><a class="nav__list-link" href="contact.html">&lt;Contact &sol;/&gt;</a></li>
+                </ul>
+            </div>
+        </nav>
+        <section class="header__container container">
+            <div class="header__left">
+                <span class="header__sup-text">Hello, I'm</span>
+                <h1 class="header__title"><span class="header__name" id="heroName" data-text="M.I Faizul Ishfaque">M.I Faizul Ishfaque</span></h1>
+                <h2 class="header__subtitle">
+                    <span class="header__title-1" id="typedRolePrimary" data-role="SOFTWARE">Software</span>
+                    <span class="header__title-2" id="typedRoleSecondary" data-role="ENGINEER">Engineer</span>
+                </h2>
+                <p class="header__msg" id="dynamicTagline">I build performant, reliable, and user-centric software solutions with modern web technologies.</p>
+                <div class="header__actions">
+                    <a href="./ishfak%20resume%20N.pdf" class="btn btn--primary" download title="Download Resume PDF">Download Resume</a>
+                    <button id="copyEmailBtn" class="btn btn--ghost" type="button" data-email="memberofpfc20@gmail.com">Copy Email</button>
+                </div>
+                <div class="social-links" aria-label="Social Links">
+                    <a href="mailto:memberofpfc20@gmail.com" class="social-link" title="Email">📧</a>
+                    <a href="https://www.linkedin.com/in/faizul-ishfaque" target="_blank" rel="noopener" class="social-link" title="LinkedIn">in</a>
+                </div>
+            </div>
+            <div class="header__right">
+                <img src="./assets/illustrations/header.svg" alt="Header section illustration" loading="lazy"/>
+            </div>
+        </section>
+        <span class="header__bg"></span>
+    </header>
+
+
+    <!-- Services -->
+    <section id="services" class="section container">
+        <h2 class="section__title">Services</h2>
+
+        <div class="service-cards">
+            <article class="service-card__box">
+                <span class="service-card__illustration">
+                    <img src="./assets/services/support.svg" alt="Support Illustration"/>
+                </span>
+                <h3 class="service-card__title">Deployment</h3>
+                <p class="service-card__msg"> I am always available to address any issues or concerns you may have.</p>
+                <span class="service-card__bg"></span>
+            </article>
+            <article class="service-card__box">
+                <span class="service-card__illustration">
+                    <img src="./assets/services/design.svg" alt="Design Illustration"/>
+                </span>
+                <h3 class="service-card__title">Design</h3>
+                <p class="service-card__msg">Specialized in creating stunning websites that are both visually appealing and user-friendly.</p>
+                <span class="service-card__bg"></span>
+            </article>
+            <article class="service-card__box">
+                <span class="service-card__illustration">
+                    <img src="./assets/services/developing.svg" alt="Deploy Illustration"/>
+                </span>
+                <h3 class="service-card__title">Developing</h3>
+                <p class="service-card__msg"> I offer custom web development services tailored to your specific needs as a solo professional.</p>
+                <span class="service-card__bg"></span>
+            </article>
+        </div>
+    </section>
+
+    <!-- Removed detailed About / Skills / Experience from landing for simplicity -->
+
+    <!-- Sample Works -->
+    <section id="works" class="section container">
+        <h2 class="section__title">My Works</h2>
+        <div class="works__filters" role="group" aria-label="Filter projects">
+            <button type="button" class="works__filter-btn works__filter-btn--active" data-filter="all">All</button>
+            <button type="button" class="works__filter-btn" data-filter="landing">Landing Pages</button>
+            <button type="button" class="works__filter-btn" data-filter="ui">UI</button>
+            <button type="button" class="works__filter-btn" data-filter="app">Apps</button>
+        </div>
+        <div class="works">
+            <article class="work" data-category="landing" data-title="Modern Landing" data-description="A modern responsive landing page template with accessible semantics." data-tech="HTML,CSS,JavaScript">
+                <div class="work__box work__reveal" data-tilt>
+                    <span class="work__img-box">
+                        <div class="work-thumb work-thumb--landing" aria-label="Modern landing page concept">
+                            <svg viewBox="0 0 160 110" role="img" aria-label="Landing hero" class="wt-svg">
+                                <defs>
+                                    <linearGradient id="lg-hero" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#00ff94"/>
+                                        <stop offset="70%" stop-color="#4f2dff"/>
+                                    </linearGradient>
+                                    <linearGradient id="lg-pane" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#1d2730"/>
+                                        <stop offset="100%" stop-color="#14191f"/>
+                                    </linearGradient>
+                                </defs>
+                                <rect x="6" y="10" width="148" height="20" rx="6" fill="url(#lg-hero)" class="wt-glow-stroke"/>
+                                <g class="wt-float-slow">
+                                    <rect x="10" y="38" width="78" height="56" rx="8" fill="url(#lg-pane)" class="wt-pane"/>
+                                    <rect x="94" y="38" width="54" height="24" rx="6" class="wt-pane"/>
+                                    <rect x="94" y="66" width="54" height="28" rx="6" class="wt-pane"/>
+                                    <rect x="18" y="50" width="48" height="8" rx="4" class="wt-barline"/>
+                                    <rect x="18" y="64" width="40" height="6" rx="3" class="wt-barline"/>
+                                    <rect x="18" y="76" width="30" height="6" rx="3" class="wt-barline"/>
+                                </g>
+                                <circle cx="32" cy="20" r="3" class="wt-dot" />
+                                <circle cx="42" cy="20" r="3" class="wt-dot" />
+                                <circle cx="52" cy="20" r="3" class="wt-dot" />
+                            </svg>
+                        </div>
+                    </span>
+                    <h3 class="work__title">Modern Landing</h3>
+                    <span class="work__badges">
+                        <span class="work__badge">HTML</span>
+                        <span class="work__badge">CSS</span>
+                        <span class="work__badge">JavaScript</span>
+                    </span>
+                </div>
+            </article>
+            <article class="work" data-category="ui" data-title="UI Components" data-description="Reusable accessible UI component library." data-tech="HTML,CSS,JavaScript">
+                <div class="work__box work__reveal" data-tilt>
+                    <span class="work__img-box">
+                        <div class="work-thumb work-thumb--ui" aria-label="UI component grid illustration">
+                            <svg viewBox="0 0 160 110" role="img" aria-label="Grid of components" class="wt-svg">
+                                <defs>
+                                    <linearGradient id="lg-ui" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#4f2dff"/>
+                                        <stop offset="100%" stop-color="#00ff94"/>
+                                    </linearGradient>
+                                </defs>
+                                <g class="wt-grid-pulse">
+                                    <rect x="10" y="10" width="40" height="22" rx="6" class="wt-pane"/>
+                                    <rect x="56" y="10" width="94" height="22" rx="6" fill="url(#lg-ui)" class="wt-glow-stroke"/>
+                                    <rect x="10" y="40" width="48" height="58" rx="8" class="wt-pane"/>
+                                    <rect x="64" y="40" width="86" height="26" rx="8" class="wt-pane wt-delay1"/>
+                                    <rect x="64" y="72" width="86" height="26" rx="8" class="wt-pane wt-delay2"/>
+                                    <rect x="20" y="52" width="28" height="8" rx="4" class="wt-barline"/>
+                                    <rect x="20" y="66" width="24" height="6" rx="3" class="wt-barline"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </span>
+                    <h3 class="work__title">UI Components</h3>
+                    <span class="work__badges">
+                        <span class="work__badge">HTML</span>
+                        <span class="work__badge">CSS</span>
+                        <span class="work__badge">JavaScript</span>
+                    </span>
+                </div>
+            </article>
+            <article class="work" data-category="app" data-title="Task App" data-description="Lightweight task management web application." data-tech="HTML,CSS,JavaScript">
+                <div class="work__box work__reveal" data-tilt>
+                    <span class="work__img-box">
+                        <div class="work-thumb work-thumb--task" aria-label="Task checklist illustration">
+                            <svg viewBox="0 0 160 110" role="img" aria-label="Checklist" class="wt-svg">
+                                <rect x="26" y="14" width="110" height="12" rx="5" class="wt-barline"/>
+                                <g class="wt-list">
+                                    <g class="wt-row"><rect x="14" y="34" width="14" height="14" rx="4" class="wt-pane"/><polyline points="16,41 20,45 28,37" class="wt-check"/></g>
+                                    <rect x="34" y="36" width="92" height="10" rx="5" class="wt-panel"/>
+                                    <g class="wt-row"><rect x="14" y="56" width="14" height="14" rx="4" class="wt-pane"/></g>
+                                    <rect x="34" y="58" width="70" height="10" rx="5" class="wt-panel"/>
+                                    <g class="wt-row"><rect x="14" y="78" width="14" height="14" rx="4" class="wt-pane"/></g>
+                                    <rect x="34" y="80" width="54" height="10" rx="5" class="wt-panel"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </span>
+                    <h3 class="work__title">Task App</h3>
+                    <span class="work__badges">
+                        <span class="work__badge">HTML</span>
+                        <span class="work__badge">CSS</span>
+                        <span class="work__badge">JavaScript</span>
+                    </span>
+                </div>
+            </article>
+            <article class="work" data-category="landing" data-title="Portfolio Template" data-description="Customizable portfolio starter built with semantic markup." data-tech="HTML,CSS,JavaScript">
+                <div class="work__box work__reveal" data-tilt>
+                    <span class="work__img-box">
+                        <div class="work-thumb work-thumb--portfolio" aria-label="Portfolio layout illustration">
+                            <svg viewBox="0 0 160 110" role="img" aria-label="Profile layout" class="wt-svg">
+                                <circle cx="44" cy="52" r="22" class="wt-pane"/>
+                                <circle cx="44" cy="52" r="22" class="wt-ring"/>
+                                <rect x="82" y="34" width="62" height="12" rx="6" class="wt-barline"/>
+                                <rect x="82" y="52" width="48" height="10" rx="5" class="wt-panel"/>
+                                <rect x="18" y="86" width="126" height="14" rx="7" class="wt-panel"/>
+                            </svg>
+                        </div>
+                    </span>
+                    <h3 class="work__title">Portfolio Template</h3>
+                    <span class="work__badges">
+                        <span class="work__badge">HTML</span>
+                        <span class="work__badge">CSS</span>
+                        <span class="work__badge">JavaScript</span>
+                    </span>
+                </div>
+            </article>
+            <article class="work" data-category="ui" data-title="Design System" data-description="Foundational design system tokens and styles." data-tech="HTML,CSS">
+                <div class="work__box work__reveal" data-tilt>
+                    <span class="work__img-box">
+                        <div class="work-thumb work-thumb--design" aria-label="Design tokens illustration">
+                            <svg viewBox="0 0 160 110" role="img" aria-label="Tokens grid" class="wt-svg">
+                                <circle cx="46" cy="42" r="26" class="wt-pane"/>
+                                <circle cx="46" cy="42" r="26" class="wt-ring"/>
+                                <circle cx="100" cy="34" r="14" class="wt-accent"/>
+                                <rect x="90" y="60" width="54" height="14" rx="7" class="wt-barline"/>
+                                <rect x="24" y="78" width="52" height="20" rx="9" class="wt-pane"/>
+                                <rect x="90" y="82" width="54" height="16" rx="8" class="wt-pane"/>
+                            </svg>
+                        </div>
+                    </span>
+                    <h3 class="work__title">Design System</h3>
+                    <span class="work__badges">
+                        <span class="work__badge">HTML</span>
+                        <span class="work__badge">CSS</span>
+                    </span>
+                </div>
+            </article>
+            <article class="work" data-category="app" data-title="Notes App" data-description="Offline-capable notes PWA demo." data-tech="HTML,CSS,JavaScript">
+                <div class="work__box work__reveal" data-tilt>
+                    <span class="work__img-box">
+                        <div class="work-thumb work-thumb--notes" aria-label="Notes board illustration">
+                            <svg viewBox="0 0 160 110" role="img" aria-label="Sticky notes" class="wt-svg">
+                                <g class="wt-stack">
+                                    <rect x="20" y="26" width="56" height="44" rx="8" class="wt-pane"/>
+                                    <rect x="30" y="38" width="36" height="8" rx="4" class="wt-barline"/>
+                                    <rect x="30" y="50" width="30" height="6" rx="3" class="wt-barline"/>
+                                    <rect x="90" y="18" width="50" height="30" rx="8" class="wt-accent"/>
+                                    <rect x="90" y="56" width="54" height="32" rx="10" class="wt-pane wt-delay1"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </span>
+                    <h3 class="work__title">Notes App</h3>
+                    <span class="work__badges">
+                        <span class="work__badge">HTML</span>
+                        <span class="work__badge">CSS</span>
+                        <span class="work__badge">JavaScript</span>
+                    </span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Contact section now moved to separate page (contact.html) -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <span>&copy; <span id="currentYear"></span> • Built with ❤️ by <a href="https://github.com/ishfak07" target="_blank" class="footer__link">Faizul Ishfaque</a></span>
+    </footer>
+</main>
+<!-- Project Modal -->
+<div id="projectModal" class="modal" aria-hidden="true" role="dialog" aria-modal="false">
+    <div class="modal__dialog" role="document">
+        <button class="modal__close" id="modalCloseBtn" aria-label="Close project details">×</button>
+        <h3 class="modal__title" id="modalProjectTitle">Project Title</h3>
+        <p class="modal__description" id="modalProjectDescription"></p>
+        <div class="modal__tech" id="modalProjectTech"></div>
+    </div>
+</div>
+
+<!-- Back To Top -->
+<button id="backToTopBtn" class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "M. I. F. Ishfaque",
+    "email": "mailto:memberofpfc20@gmail.com",
+    "jobTitle": "Software Engineer",
+    "alumniOf": ["University of Plymouth", "NSBM Green University"],
+    "sameAs": ["https://www.linkedin.com/in/faizul-ishfaque"],
+    "description": "Software Engineer | BSc (Hons) Computer Science (2nd Lower) | MERN | ERP | FRAPPE | Agile Methodology | Web & QA Testing",
+    "knowsAbout": ["MERN Stack","ERP","Frappe","Agile Methodology","Problem Solving","System Design","QA Testing","Graphic Design","Digital Illustration","Visual Communication"],
+    "worksFor": {"@type":"Organization","name":"Imara Software Solutions"},
+    "address": {"@type":"PostalAddress", "addressLocality":"Puttalam", "addressCountry":"Sri Lanka"}
+}
+</script>
+</body>
+</html>
