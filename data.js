@@ -30,6 +30,20 @@ window.PORTFOLIO_DATA = {
         'Engage in task planning, feedback sessions, and team discussions',
         'Gaining hands-on industry experience and strengthening collaborative skills'
       ]
+    },
+     {
+      company: 'Beta International',
+      role: 'Information Technology Support Engineer',
+      location: 'Colombo, Western Province, Sri Lanka',
+      start: 'March 2024',
+      end: 'November 2024',
+      highlights: [
+        'Installed, configured, and maintained Windows 10/11 operating systems',
+        'Provided Level 1 IT support for desktops, laptops, and peripheral devices (printers, scanners, etc.)',
+        'Troubleshot hardware, software, and system performance issues',
+        'Installed and supported common applications (MS Office, browsers, antivirus)',
+        'Assisted users with email setup, password resets, and account access issues'
+      ]
     }
   ],
   education: [

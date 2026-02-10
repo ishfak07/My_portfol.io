@@ -20,6 +20,7 @@
     setupNav();
     setupTheme();
     setupHeroCanvas();
+    setupDynamicOrbs();
     setupProjectFilters();
     setupProjectModal();
     setupContactForm();
@@ -176,9 +177,10 @@
     var ctx = canvas.getContext('2d');
     var particles = [];
     var mouse = { x: -99999, y: -99999 };
-    var PARTICLE_COUNT = 80;
-    var CONNECTION_DIST = 140;
+    var PARTICLE_COUNT = 120;
+    var CONNECTION_DIST = 150;
     var animId;
+    var time = 0;
 
     function resize() {
       var parent = canvas.parentElement;
@@ -202,41 +204,59 @@
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        r: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.5 + 0.2,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        r: Math.random() * 2.5 + 0.5,
+        opacity: Math.random() * 0.6 + 0.3,
+        phase: Math.random() * Math.PI * 2,
       });
     }
 
     function animate() {
+      time += 0.01;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       var isDark = document.documentElement.getAttribute('data-theme') !== 'light';
       var particleColor = isDark ? '124, 58, 237' : '124, 58, 237';
+      var accentColor = isDark ? '6, 182, 212' : '6, 182, 212';
 
       particles.forEach(function (p, i) {
-        // Move
-        p.x += p.vx;
-        p.y += p.vy;
+        // Add wave motion
+        var wave = Math.sin(time + p.phase) * 0.5;
+        
+        // Move with wave influence
+        p.x += p.vx + wave * 0.1;
+        p.y += p.vy + Math.cos(time + p.phase) * 0.1;
+        
+        // Boundary bounce
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
-        // Mouse repel
+        // Mouse interaction (attract and repel)
         var dx = p.x - mouse.x;
         var dy = p.y - mouse.y;
         var dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
-          p.x += dx * 0.02;
-          p.y += dy * 0.02;
+        if (dist < 150) {
+          var force = (150 - dist) / 150;
+          p.x += dx * force * 0.03;
+          p.y += dy * force * 0.03;
         }
 
-        // Draw particle
+        // Pulsating opacity
+        var pulseOpacity = p.opacity + Math.sin(time * 2 + p.phase) * 0.2;
+        
+        // Draw particle with gradient
+        var gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+        var useCyan = Math.sin(time + i * 0.1) > 0.3;
+        var color = useCyan ? accentColor : particleColor;
+        gradient.addColorStop(0, 'rgba(' + color + ',' + pulseOpacity + ')');
+        gradient.addColorStop(1, 'rgba(' + color + ', 0)');
+        
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(' + particleColor + ',' + p.opacity + ')';
+        ctx.fillStyle = gradient;
         ctx.fill();
 
-        // Connect nearby particles
+        // Connect nearby particles with colored lines
         for (var j = i + 1; j < particles.length; j++) {
           var p2 = particles[j];
           var ddx = p.x - p2.x;
@@ -246,9 +266,12 @@
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            var lineOpacity = (1 - dd / CONNECTION_DIST) * 0.15;
-            ctx.strokeStyle = 'rgba(' + particleColor + ',' + lineOpacity + ')';
-            ctx.lineWidth = 0.5;
+            var lineOpacity = (1 - dd / CONNECTION_DIST) * 0.2;
+            var lineGradient = ctx.createLinearGradient(p.x, p.y, p2.x, p2.y);
+            lineGradient.addColorStop(0, 'rgba(' + particleColor + ',' + lineOpacity + ')');
+            lineGradient.addColorStop(1, 'rgba(' + accentColor + ',' + lineOpacity + ')');
+            ctx.strokeStyle = lineGradient;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
@@ -257,6 +280,39 @@
       animId = requestAnimationFrame(animate);
     }
     animate();
+  }
+
+  /* ========== DYNAMIC GRADIENT ORBS ========== */
+  function setupDynamicOrbs() {
+    var orbs = document.querySelectorAll('.hero__gradient-orb');
+    if (orbs.length === 0) return;
+
+    var mouse = { x: 0, y: 0 };
+    var targetMouse = { x: 0, y: 0 };
+
+    document.addEventListener('mousemove', function(e) {
+      targetMouse.x = e.clientX / window.innerWidth;
+      targetMouse.y = e.clientY / window.innerHeight;
+    });
+
+    function animateOrbs() {
+      // Smooth mouse following
+      mouse.x += (targetMouse.x - mouse.x) * 0.05;
+      mouse.y += (targetMouse.y - mouse.y) * 0.05;
+
+      orbs.forEach(function(orb, i) {
+        var speed = (i + 1) * 10;
+        var xOffset = (mouse.x - 0.5) * speed;
+        var yOffset = (mouse.y - 0.5) * speed;
+        
+        var currentTransform = orb.style.transform || '';
+        var baseTransform = currentTransform.split('translate(')[0];
+        orb.style.transform = baseTransform + ' translate(' + xOffset + 'px, ' + yOffset + 'px)';
+      });
+
+      requestAnimationFrame(animateOrbs);
+    }
+    animateOrbs();
   }
 
   /* ========== HERO ANIMATIONS (GSAP) ========== */
@@ -566,13 +622,16 @@
   /* ========== BACK TO TOP ========== */
   function setupBackToTop() {
     var btn = document.getElementById('backToTop');
+    var resumeBtn = document.getElementById('floatingResume');
     if (!btn) return;
 
     window.addEventListener('scroll', function () {
       if (window.scrollY > 400) {
         btn.classList.add('visible');
+        if (resumeBtn) resumeBtn.classList.add('visible');
       } else {
         btn.classList.remove('visible');
+        if (resumeBtn) resumeBtn.classList.remove('visible');
       }
     }, { passive: true });
 
@@ -622,7 +681,7 @@
     animateFollower();
 
     // Hover states
-    var hoverTargets = document.querySelectorAll('a, button, .project-card, .service-card, .gallery-item, .filter-btn, .tech-tag');
+    var hoverTargets = document.querySelectorAll('a, button, .project-card, .service-card, .gallery-item, .filter-btn, .tech-tag, .floating-resume');
     hoverTargets.forEach(function (el) {
       el.addEventListener('mouseenter', function () {
         cursor.classList.add('hover');
