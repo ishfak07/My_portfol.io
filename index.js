@@ -21,6 +21,7 @@
     setupTheme();
     setupHeroCanvas();
     setupDynamicOrbs();
+    setupPortraitParallax();
     setupProjectFilters();
     setupProjectModal();
     setupContactForm();
@@ -313,6 +314,40 @@
       requestAnimationFrame(animateOrbs);
     }
     animateOrbs();
+  }
+
+  /* ========== PORTRAIT PARALLAX INTERACTION ========== */
+  function setupPortraitParallax() {
+    var portraitWrap = document.querySelector('.hero__portrait-wrap');
+    var portrait = document.querySelector('.hero__portrait');
+    if (!portraitWrap || !portrait) return;
+
+    portraitWrap.addEventListener('mousemove', function(e) {
+      var rect = portraitWrap.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      var y = (e.clientY - rect.top) / rect.height - 0.5;
+      
+      var rotateY = x * 15;
+      var rotateX = -y * 15;
+      var translateZ = 20;
+      
+      portrait.style.transform = 'scale(1.05) translateZ(' + translateZ + 'px) rotateY(' + rotateY + 'deg) rotateX(' + rotateX + 'deg)';
+      
+      // Move rings in opposite direction
+      var rings = portraitWrap.querySelectorAll('.hero__portrait-ring');
+      rings.forEach(function(ring, i) {
+        var multiplier = (i + 1) * 0.5;
+        ring.style.transform = 'translate(' + (-x * 10 * multiplier) + 'px, ' + (-y * 10 * multiplier) + 'px) rotate(' + (i === 0 ? '0deg' : '0deg') + ')';
+      });
+    });
+
+    portraitWrap.addEventListener('mouseleave', function() {
+      portrait.style.transform = '';
+      var rings = portraitWrap.querySelectorAll('.hero__portrait-ring');
+      rings.forEach(function(ring) {
+        ring.style.transform = '';
+      });
+    });
   }
 
   /* ========== HERO ANIMATIONS (GSAP) ========== */
