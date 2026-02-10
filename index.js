@@ -611,16 +611,18 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var name = document.getElementById('contactName').value.trim();
-      var email = document.getElementById('contactEmail').value.trim();
-      var message = document.getElementById('contactMessage').value.trim();
+      var nameVal = document.getElementById('contactName').value.trim();
+      var emailVal = document.getElementById('contactEmail').value.trim();
+      var messageVal = document.getElementById('contactMessage').value.trim();
 
-      if (!name || !email || !message) {
+      if (!nameVal || !emailVal || !messageVal) {
         errorEl.textContent = 'Please fill in all fields.';
+        errorEl.style.color = 'var(--accent-3)';
         return;
       }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
         errorEl.textContent = 'Please enter a valid email address.';
+        errorEl.style.color = 'var(--accent-3)';
         return;
       }
 
@@ -630,24 +632,37 @@
       btnText.textContent = 'Sending...';
       submitBtn.disabled = true;
 
-      var data = new FormData(form);
-      fetch(form.action, {
+      var formAction = form.getAttribute('action');
+      fetch(formAction, {
         method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: nameVal,
+          email: emailVal,
+          message: messageVal
+        })
       }).then(function (res) {
-        if (res.ok) {
-          btnText.textContent = 'Sent!';
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          if (!res.ok || data.error) {
+            throw new Error(data.error || 'Form submission failed');
+          }
+          btnText.textContent = 'Sent Successfully!';
+          errorEl.textContent = 'Message sent! I\'ll get back to you soon.';
+          errorEl.style.color = 'var(--accent-4)';
           form.reset();
           setTimeout(function () {
             btnText.textContent = originalText;
             submitBtn.disabled = false;
-          }, 3000);
-        } else {
-          throw new Error('Failed');
-        }
-      }).catch(function () {
-        errorEl.textContent = 'Something went wrong. Please try again.';
+            errorEl.textContent = '';
+          }, 4000);
+        });
+      }).catch(function (err) {
+        console.error('Contact form error:', err);
+        errorEl.textContent = 'Failed to send. Please try again later.';
+        errorEl.style.color = 'var(--accent-3)';
         btnText.textContent = originalText;
         submitBtn.disabled = false;
       });
