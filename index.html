@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Faizul Ishfaque — Software Engineer</title>
-  <meta name="description" content="Portfolio of M. I. F. Ishfaque – Software Engineer | BSc (Hons) Computer Science | MERN | ERP | FRAPPE | Agile | Web & QA Testing" />
+  <meta name="description"
+    content="Portfolio of M. I. F. Ishfaque – Software Engineer | BSc (Hons) Computer Science | MERN | ERP | FRAPPE | Agile | Web & QA Testing" />
   <meta name="author" content="M. I. F. Ishfaque" />
   <meta property="og:title" content="Faizul Ishfaque — Software Engineer" />
-  <meta property="og:description" content="Software Engineer – MERN, ERP, FRAPPE, Agile Methodology, Web & QA Testing." />
+  <meta property="og:description"
+    content="Software Engineer – MERN, ERP, FRAPPE, Agile Methodology, Web & QA Testing." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="./favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32x32.png" />
@@ -15,7 +18,12 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 
   <!-- GSAP -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
@@ -32,8 +40,13 @@
   <link rel="stylesheet" href="./style.css" />
   <script src="./data.js" defer></script>
   <script src="./index.js" defer></script>
+  <script src="./three-scene.js" defer></script>
 </head>
+
 <body>
+
+  <!-- ====== 3D BACKGROUND CANVAS ====== -->
+  <canvas id="bg3d"></canvas>
 
   <!-- ====== PRELOADER ====== -->
   <div class="preloader" id="preloader">
@@ -75,8 +88,22 @@
       </ul>
       <div class="nav__right">
         <button class="nav__theme-btn" id="themeToggle" aria-label="Toggle theme">
-          <svg class="theme-icon theme-icon--moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="theme-icon theme-icon--sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="theme-icon theme-icon--moon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+          <svg class="theme-icon theme-icon--sun" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
         </button>
         <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
           <span></span><span></span><span></span>
@@ -127,23 +154,45 @@
           <span class="hero__role-cursor">|</span>
           <span class="hero__role-bracket">/&gt;</span>
         </div>
-        <p class="hero__desc">I build performant, reliable, and user-centric software solutions with modern web technologies.</p>
+        <p class="hero__desc">I build performant, reliable, and user-centric software solutions with modern web
+          technologies.</p>
         <div class="hero__actions">
           <a href="./ishfak%20resume%20N.pdf" class="btn btn--primary magnetic" download>
             <span class="btn__bg"></span>
             <span class="btn__text">Download CV</span>
-            <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+            <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg></span>
           </a>
           <a href="#contact" class="btn btn--outline magnetic">
             <span class="btn__bg"></span>
             <span class="btn__text">Get in Touch</span>
-            <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg></span>
           </a>
         </div>
         <div class="hero__socials">
-          <a href="mailto:memberofpfc20@gmail.com" class="hero__social magnetic" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
-          <a href="https://www.linkedin.com/in/faizul-ishfaque" target="_blank" rel="noopener" class="hero__social magnetic" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-          <a href="https://github.com/ishfak07" target="_blank" rel="noopener" class="hero__social magnetic" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+          <a href="mailto:memberofpfc20@gmail.com" class="hero__social magnetic" aria-label="Email"><svg
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg></a>
+          <a href="https://www.linkedin.com/in/faizul-ishfaque" target="_blank" rel="noopener"
+            class="hero__social magnetic" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.5">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+              <rect x="2" y="9" width="4" height="12" />
+              <circle cx="4" cy="4" r="2" />
+            </svg></a>
+          <a href="https://github.com/ishfak07" target="_blank" rel="noopener" class="hero__social magnetic"
+            aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+            </svg></a>
         </div>
       </div>
       <div class="hero__visual">
@@ -170,7 +219,9 @@
     </div>
 
     <div class="hero__scroll">
-      <div class="hero__scroll-mouse"><div class="hero__scroll-wheel"></div></div>
+      <div class="hero__scroll-mouse">
+        <div class="hero__scroll-wheel"></div>
+      </div>
       <span>Scroll Down</span>
     </div>
   </section>
@@ -185,17 +236,29 @@
       </div>
       <div class="about__grid">
         <div class="about__content">
-          <p class="about__text anim-item">I'm <strong>M. I. F. Ishfaque</strong>, a <strong>Computer Science graduate (BSc Hons, Plymouth University)</strong> and a passionate <strong>Software Engineer</strong> focused on building reliable and scalable software solutions.</p>
-          <p class="about__text anim-item">I approach development with a strong emphasis on <strong>clean architecture</strong>, <strong>iterative problem-solving</strong>, and <strong>pragmatic testing practices</strong>, ensuring that applications remain maintainable, efficient, and adaptable to real-world needs.</p>
-          <p class="about__text anim-item">My core interests include <strong>web application development</strong>, <strong>system design fundamentals</strong>, <strong>performance optimization</strong>, and <strong>quality engineering</strong>.</p>
-          <p class="about__mission anim-item"><em>"Design and deliver maintainable, user-focused software products that create measurable impact through thoughtful engineering."</em></p>
+          <p class="about__text anim-item">I'm <strong>M. I. F. Ishfaque</strong>, a <strong>Computer Science graduate
+              (BSc Hons, Plymouth University)</strong> and a passionate <strong>Software Engineer</strong> focused on
+            building reliable and scalable software solutions.</p>
+          <p class="about__text anim-item">I approach development with a strong emphasis on <strong>clean
+              architecture</strong>, <strong>iterative problem-solving</strong>, and <strong>pragmatic testing
+              practices</strong>, ensuring that applications remain maintainable, efficient, and adaptable to real-world
+            needs.</p>
+          <p class="about__text anim-item">My core interests include <strong>web application development</strong>,
+            <strong>system design fundamentals</strong>, <strong>performance optimization</strong>, and <strong>quality
+              engineering</strong>.</p>
+          <p class="about__mission anim-item"><em>"Design and deliver maintainable, user-focused software products that
+              create measurable impact through thoughtful engineering."</em></p>
         </div>
         <div class="about__meta anim-item">
           <div class="about__meta-card glass-card">
-            <div class="about__meta-item"><span class="about__meta-label">Current Role</span><span class="about__meta-value">Software Engineer Intern</span></div>
-            <div class="about__meta-item"><span class="about__meta-label">Company</span><span class="about__meta-value">Imara Software Solutions</span></div>
-            <div class="about__meta-item"><span class="about__meta-label">Location</span><span class="about__meta-value">Puttalam, Sri Lanka</span></div>
-            <div class="about__meta-item"><span class="about__meta-label">Degree</span><span class="about__meta-value">BSc (Hons) CS — 2nd Class</span></div>
+            <div class="about__meta-item"><span class="about__meta-label">Current Role</span><span
+                class="about__meta-value">Software Engineer Intern</span></div>
+            <div class="about__meta-item"><span class="about__meta-label">Company</span><span
+                class="about__meta-value">Imara Software Solutions</span></div>
+            <div class="about__meta-item"><span class="about__meta-label">Location</span><span
+                class="about__meta-value">Puttalam, Sri Lanka</span></div>
+            <div class="about__meta-item"><span class="about__meta-label">Degree</span><span
+                class="about__meta-value">BSc (Hons) CS — 2nd Class</span></div>
           </div>
         </div>
       </div>
@@ -204,31 +267,60 @@
       <div class="services__grid">
         <div class="service-card glass-card tilt-card anim-item">
           <div class="service-card__glow"></div>
-          <div class="service-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <div class="service-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+            </svg></div>
           <h3 class="service-card__title">Web Development</h3>
-          <p class="service-card__desc">Full-stack web development with modern frameworks, REST APIs, and responsive design that works across all devices.</p>
+          <p class="service-card__desc">Full-stack web development with modern frameworks, REST APIs, and responsive
+            design that works across all devices.</p>
         </div>
         <div class="service-card glass-card tilt-card anim-item">
           <div class="service-card__glow"></div>
-          <div class="service-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+          <div class="service-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 19l7-7 3 3-7 7-3-3z" />
+              <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+              <path d="M2 2l7.586 7.586" />
+              <circle cx="11" cy="11" r="2" />
+            </svg></div>
           <h3 class="service-card__title">UI / UX Design</h3>
-          <p class="service-card__desc">Creating stunning, user-friendly interfaces with attention to detail, accessibility, and visual communication.</p>
+          <p class="service-card__desc">Creating stunning, user-friendly interfaces with attention to detail,
+            accessibility, and visual communication.</p>
         </div>
         <div class="service-card glass-card tilt-card anim-item">
           <div class="service-card__glow"></div>
-          <div class="service-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div class="service-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polyline points="16 18 22 12 16 6" />
+              <polyline points="8 6 2 12 8 18" />
+            </svg></div>
           <h3 class="service-card__title">Software Engineering</h3>
-          <p class="service-card__desc">Building robust, scalable applications using Agile methodology, clean architecture, and quality engineering practices.</p>
+          <p class="service-card__desc">Building robust, scalable applications using Agile methodology, clean
+            architecture, and quality engineering practices.</p>
         </div>
       </div>
 
       <div class="tech-marquee anim-item">
         <div class="tech-marquee__track">
           <div class="tech-marquee__content">
-            <span class="tech-tag">JavaScript</span><span class="tech-tag">TypeScript</span><span class="tech-tag">React</span><span class="tech-tag">Node.js</span><span class="tech-tag">Express.js</span><span class="tech-tag">MongoDB</span><span class="tech-tag">Python</span><span class="tech-tag">FastAPI</span><span class="tech-tag">Flutter</span><span class="tech-tag">Firebase</span><span class="tech-tag">Java</span><span class="tech-tag">Docker</span><span class="tech-tag">Git</span><span class="tech-tag">Agile</span><span class="tech-tag">FRAPPE</span><span class="tech-tag">ERP</span><span class="tech-tag">QA Testing</span><span class="tech-tag">Graphic Design</span>
+            <span class="tech-tag">JavaScript</span><span class="tech-tag">TypeScript</span><span
+              class="tech-tag">React</span><span class="tech-tag">Node.js</span><span
+              class="tech-tag">Express.js</span><span class="tech-tag">MongoDB</span><span
+              class="tech-tag">Python</span><span class="tech-tag">FastAPI</span><span
+              class="tech-tag">Flutter</span><span class="tech-tag">Firebase</span><span
+              class="tech-tag">Java</span><span class="tech-tag">Docker</span><span class="tech-tag">Git</span><span
+              class="tech-tag">Agile</span><span class="tech-tag">FRAPPE</span><span class="tech-tag">ERP</span><span
+              class="tech-tag">QA Testing</span><span class="tech-tag">Graphic Design</span>
           </div>
           <div class="tech-marquee__content" aria-hidden="true">
-            <span class="tech-tag">JavaScript</span><span class="tech-tag">TypeScript</span><span class="tech-tag">React</span><span class="tech-tag">Node.js</span><span class="tech-tag">Express.js</span><span class="tech-tag">MongoDB</span><span class="tech-tag">Python</span><span class="tech-tag">FastAPI</span><span class="tech-tag">Flutter</span><span class="tech-tag">Firebase</span><span class="tech-tag">Java</span><span class="tech-tag">Docker</span><span class="tech-tag">Git</span><span class="tech-tag">Agile</span><span class="tech-tag">FRAPPE</span><span class="tech-tag">ERP</span><span class="tech-tag">QA Testing</span><span class="tech-tag">Graphic Design</span>
+            <span class="tech-tag">JavaScript</span><span class="tech-tag">TypeScript</span><span
+              class="tech-tag">React</span><span class="tech-tag">Node.js</span><span
+              class="tech-tag">Express.js</span><span class="tech-tag">MongoDB</span><span
+              class="tech-tag">Python</span><span class="tech-tag">FastAPI</span><span
+              class="tech-tag">Flutter</span><span class="tech-tag">Firebase</span><span
+              class="tech-tag">Java</span><span class="tech-tag">Docker</span><span class="tech-tag">Git</span><span
+              class="tech-tag">Agile</span><span class="tech-tag">FRAPPE</span><span class="tech-tag">ERP</span><span
+              class="tech-tag">QA Testing</span><span class="tech-tag">Graphic Design</span>
           </div>
         </div>
       </div>
@@ -245,25 +337,46 @@
       </div>
       <div class="exp__grid">
         <div class="exp__col">
-          <h3 class="exp__col-title anim-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Work Experience</h3>
+          <h3 class="exp__col-title anim-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" width="22" height="22">
+              <rect x="2" y="7" width="20" height="14" rx="2" />
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+            </svg> Work Experience</h3>
           <div class="timeline" id="experienceTimeline"></div>
         </div>
         <div class="exp__col">
-          <h3 class="exp__col-title anim-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 8 3 12 0v-5"/></svg> Education</h3>
+          <h3 class="exp__col-title anim-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" width="22" height="22">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              <path d="M6 12v5c3 3 8 3 12 0v-5" />
+            </svg> Education</h3>
           <div class="timeline" id="educationTimeline"></div>
-          <h3 class="exp__col-title anim-item" style="margin-top:3rem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg> Awards</h3>
+          <h3 class="exp__col-title anim-item" style="margin-top:3rem"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" width="22" height="22">
+              <circle cx="12" cy="8" r="7" />
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+            </svg> Awards</h3>
           <div id="awardsList" class="awards-list"></div>
         </div>
       </div>
 
       <div class="certs-section">
-        <h3 class="exp__col-title anim-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg> Certifications</h3>
+        <h3 class="exp__col-title anim-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            width="22" height="22">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg> Certifications</h3>
         <div class="certs__tags" id="certTags"></div>
         <div class="gallery-grid" id="certificateGallery"></div>
       </div>
 
       <div class="gallery-section">
-        <h3 class="exp__col-title anim-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Gallery</h3>
+        <h3 class="exp__col-title anim-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            width="22" height="22">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg> Gallery</h3>
         <div class="gallery-grid" id="galleryGrid"></div>
       </div>
     </div>
@@ -284,25 +397,101 @@
         <button class="filter-btn" data-filter="mobile">Mobile</button>
       </div>
       <div class="projects__grid" id="projectsGrid">
-        <article class="project-card glass-card tilt-card anim-item" data-category="desktop" data-title="FurniVue" data-url="https://github.com/ishfak07/FurniVUE" data-features="2D & 3D visualization of room layouts|Customizable room dimensions & furniture placement|Undo/reset interactions & responsive UI|Usability testing with SUS evaluations|Agile Scrum iterative sprints" data-description="Interactive interior design desktop application (Java Swing + OpenGL JOGL) focusing on usability & real-time rendering." data-tech="Java,Java Swing,OpenGL (JOGL),Agile,Usability">
-          <div class="project-card__image"><img src="./Furnivue.jpg" alt="FurniVue" loading="lazy"/><div class="project-card__overlay"><span class="project-card__view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> View Details</span></div></div>
-          <div class="project-card__body"><span class="project-card__category">Desktop App</span><h3 class="project-card__title">FurniVue — Interior Design</h3><p class="project-card__excerpt">2D/3D real-time interior visualization tool with usability-driven design.</p><div class="project-card__tags"><span>Java</span><span>Swing</span><span>OpenGL</span><span>Agile</span></div></div>
+        <article class="project-card glass-card tilt-card anim-item" data-category="desktop" data-title="FurniVue"
+          data-url="https://github.com/ishfak07/FurniVUE"
+          data-features="2D & 3D visualization of room layouts|Customizable room dimensions & furniture placement|Undo/reset interactions & responsive UI|Usability testing with SUS evaluations|Agile Scrum iterative sprints"
+          data-description="Interactive interior design desktop application (Java Swing + OpenGL JOGL) focusing on usability & real-time rendering."
+          data-tech="Java,Java Swing,OpenGL (JOGL),Agile,Usability">
+          <div class="project-card__image"><img src="./Furnivue.jpg" alt="FurniVue" loading="lazy" />
+            <div class="project-card__overlay"><span class="project-card__view"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg> View Details</span></div>
+          </div>
+          <div class="project-card__body"><span class="project-card__category">Desktop App</span>
+            <h3 class="project-card__title">FurniVue — Interior Design</h3>
+            <p class="project-card__excerpt">2D/3D real-time interior visualization tool with usability-driven design.
+            </p>
+            <div class="project-card__tags"><span>Java</span><span>Swing</span><span>OpenGL</span><span>Agile</span>
+            </div>
+          </div>
         </article>
-        <article class="project-card glass-card tilt-card anim-item" data-category="web" data-title="HireMe" data-url="https://github.com/ishfak07/Hire_Me-" data-features="OTP password recovery|Real-time notifications (Socket.IO)|Transparent pricing & booking|Mobile friendly responsive UI|Secure communication channel" data-description="Service platform connecting users & verified providers with real-time features (Node.js + Socket.IO + MongoDB)." data-tech="Node.js,Express.js,Socket.IO,MongoDB,OTP,Responsive UI">
-          <div class="project-card__image"><img src="./Hireme.png" alt="HireMe" loading="lazy"/><div class="project-card__overlay"><span class="project-card__view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> View Details</span></div></div>
-          <div class="project-card__body"><span class="project-card__category">Web App</span><h3 class="project-card__title">HireMe — Service Platform</h3><p class="project-card__excerpt">Real-time platform for connecting service seekers & providers.</p><div class="project-card__tags"><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Socket.IO</span></div></div>
+        <article class="project-card glass-card tilt-card anim-item" data-category="web" data-title="HireMe"
+          data-url="https://github.com/ishfak07/Hire_Me-"
+          data-features="OTP password recovery|Real-time notifications (Socket.IO)|Transparent pricing & booking|Mobile friendly responsive UI|Secure communication channel"
+          data-description="Service platform connecting users & verified providers with real-time features (Node.js + Socket.IO + MongoDB)."
+          data-tech="Node.js,Express.js,Socket.IO,MongoDB,OTP,Responsive UI">
+          <div class="project-card__image"><img src="./Hireme.png" alt="HireMe" loading="lazy" />
+            <div class="project-card__overlay"><span class="project-card__view"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg> View Details</span></div>
+          </div>
+          <div class="project-card__body"><span class="project-card__category">Web App</span>
+            <h3 class="project-card__title">HireMe — Service Platform</h3>
+            <p class="project-card__excerpt">Real-time platform for connecting service seekers & providers.</p>
+            <div class="project-card__tags">
+              <span>Node.js</span><span>Express</span><span>MongoDB</span><span>Socket.IO</span></div>
+          </div>
         </article>
-        <article class="project-card glass-card tilt-card anim-item" data-category="mobile" data-title="Quite Mate" data-url="https://github.com/umiloop/QuiteMate" data-features="Quit plan personalization|Progress tracking & analytics|Cloud sync (Firestore/Auth)|Motivational resources|Community peer support" data-description="Cross-platform smoking cessation mobile app (Flutter + Firebase) supporting behavioral change." data-tech="Flutter,Firebase (Firestore/Auth/Storage),Analytics,Agile">
-          <div class="project-card__image"><img src="./Quitemate.jpg" alt="Quite Mate" loading="lazy"/><div class="project-card__overlay"><span class="project-card__view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> View Details</span></div></div>
-          <div class="project-card__body"><span class="project-card__category">Mobile App</span><h3 class="project-card__title">Quite Mate — Cessation App</h3><p class="project-card__excerpt">Behavior change companion with analytics & cloud sync.</p><div class="project-card__tags"><span>Flutter</span><span>Firebase</span><span>Analytics</span><span>Dart</span></div></div>
+        <article class="project-card glass-card tilt-card anim-item" data-category="mobile" data-title="Quite Mate"
+          data-url="https://github.com/umiloop/QuiteMate"
+          data-features="Quit plan personalization|Progress tracking & analytics|Cloud sync (Firestore/Auth)|Motivational resources|Community peer support"
+          data-description="Cross-platform smoking cessation mobile app (Flutter + Firebase) supporting behavioral change."
+          data-tech="Flutter,Firebase (Firestore/Auth/Storage),Analytics,Agile">
+          <div class="project-card__image"><img src="./Quitemate.jpg" alt="Quite Mate" loading="lazy" />
+            <div class="project-card__overlay"><span class="project-card__view"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg> View Details</span></div>
+          </div>
+          <div class="project-card__body"><span class="project-card__category">Mobile App</span>
+            <h3 class="project-card__title">Quite Mate — Cessation App</h3>
+            <p class="project-card__excerpt">Behavior change companion with analytics & cloud sync.</p>
+            <div class="project-card__tags">
+              <span>Flutter</span><span>Firebase</span><span>Analytics</span><span>Dart</span></div>
+          </div>
         </article>
-        <article class="project-card glass-card tilt-card anim-item" data-category="web" data-title="Own Setup – Online Business Guild" data-url="https://github.com/ishfak07/E-comerce-py-js.git" data-features="FastAPI REST API with JWT authentication|Stripe payment integration & PDF invoice generation|MongoDB persistence & Uvicorn ASGI server|React 18 + Vite with dynamic cart & checkout|Admin dashboard for order management|OpenStreetMap/Leaflet store location map|Containerized with Docker Compose|CI-friendly with pytest/Vitest testing" data-description="Full-stack e-commerce platform with FastAPI backend and React/Vite frontend." data-tech="Python,FastAPI,TypeScript,React,MongoDB,Stripe,Docker">
-          <div class="project-card__image"><img src="./OwnSetup.png" alt="Own Setup" loading="lazy"/><div class="project-card__overlay"><span class="project-card__view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> View Details</span></div></div>
-          <div class="project-card__body"><span class="project-card__category">Web App</span><h3 class="project-card__title">Own Setup — E-Commerce</h3><p class="project-card__excerpt">Full-stack e-commerce platform with payments & admin dashboard.</p><div class="project-card__tags"><span>Python</span><span>FastAPI</span><span>React</span><span>MongoDB</span><span>Docker</span></div></div>
+        <article class="project-card glass-card tilt-card anim-item" data-category="web"
+          data-title="Own Setup – Online Business Guild" data-url="https://github.com/ishfak07/E-comerce-py-js.git"
+          data-features="FastAPI REST API with JWT authentication|Stripe payment integration & PDF invoice generation|MongoDB persistence & Uvicorn ASGI server|React 18 + Vite with dynamic cart & checkout|Admin dashboard for order management|OpenStreetMap/Leaflet store location map|Containerized with Docker Compose|CI-friendly with pytest/Vitest testing"
+          data-description="Full-stack e-commerce platform with FastAPI backend and React/Vite frontend."
+          data-tech="Python,FastAPI,TypeScript,React,MongoDB,Stripe,Docker">
+          <div class="project-card__image"><img src="./OwnSetup.png" alt="Own Setup" loading="lazy" />
+            <div class="project-card__overlay"><span class="project-card__view"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg> View Details</span></div>
+          </div>
+          <div class="project-card__body"><span class="project-card__category">Web App</span>
+            <h3 class="project-card__title">Own Setup — E-Commerce</h3>
+            <p class="project-card__excerpt">Full-stack e-commerce platform with payments & admin dashboard.</p>
+            <div class="project-card__tags">
+              <span>Python</span><span>FastAPI</span><span>React</span><span>MongoDB</span><span>Docker</span></div>
+          </div>
         </article>
-        <article class="project-card glass-card tilt-card anim-item" data-category="web" data-title="Personal Portfolio" data-url="https://github.com/ishfak07/My_portfol.io" data-features="Multi-page architecture|Dark/Light theme toggle|Animated project gallery|Dynamic data-driven content|Responsive layout & scroll reveal" data-description="A performant, accessible portfolio showcase with animated interactions and data-driven sections." data-tech="HTML,CSS,JavaScript,SVG,Accessibility">
-          <div class="project-card__image"><img src="./Portfolio.png" alt="Portfolio" loading="lazy"/><div class="project-card__overlay"><span class="project-card__view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> View Details</span></div></div>
-          <div class="project-card__body"><span class="project-card__category">Web App</span><h3 class="project-card__title">Personal Portfolio</h3><p class="project-card__excerpt">Animated, accessible multi-page portfolio platform.</p><div class="project-card__tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>SVG</span></div></div>
+        <article class="project-card glass-card tilt-card anim-item" data-category="web" data-title="Personal Portfolio"
+          data-url="https://github.com/ishfak07/My_portfol.io"
+          data-features="Multi-page architecture|Dark/Light theme toggle|Animated project gallery|Dynamic data-driven content|Responsive layout & scroll reveal"
+          data-description="A performant, accessible portfolio showcase with animated interactions and data-driven sections."
+          data-tech="HTML,CSS,JavaScript,SVG,Accessibility">
+          <div class="project-card__image"><img src="./Portfolio.png" alt="Portfolio" loading="lazy" />
+            <div class="project-card__overlay"><span class="project-card__view"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg> View Details</span></div>
+          </div>
+          <div class="project-card__body"><span class="project-card__category">Web App</span>
+            <h3 class="project-card__title">Personal Portfolio</h3>
+            <p class="project-card__excerpt">Animated, accessible multi-page portfolio platform.</p>
+            <div class="project-card__tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>SVG</span>
+            </div>
+          </div>
         </article>
       </div>
     </div>
@@ -318,29 +507,64 @@
       </div>
       <p class="contact__intro anim-item">Have a project in mind or want to collaborate? I'd love to hear from you.</p>
       <div class="contact__grid">
-        <form class="contact__form glass-card anim-item" id="contactForm" action="https://formspree.io/f/mnngdbgd" method="POST" novalidate>
-          <input type="hidden" name="_subject" value="Portfolio contact message"/>
-          <div class="form-group"><input type="text" id="contactName" name="name" required placeholder=" "/><label for="contactName">Your Name</label><div class="form-line"></div></div>
-          <div class="form-group"><input type="email" id="contactEmail" name="email" required placeholder=" "/><label for="contactEmail">Your Email</label><div class="form-line"></div></div>
-          <div class="form-group"><textarea id="contactMessage" name="message" rows="5" required placeholder=" "></textarea><label for="contactMessage">Your Message</label><div class="form-line"></div></div>
-          <div style="display:none"><input type="text" name="_gotcha" tabindex="-1" autocomplete="off"/></div>
+        <form class="contact__form glass-card anim-item" id="contactForm" action="https://formspree.io/f/mnngdbgd"
+          method="POST" novalidate>
+          <input type="hidden" name="_subject" value="Portfolio contact message" />
+          <div class="form-group"><input type="text" id="contactName" name="name" required placeholder=" " /><label
+              for="contactName">Your Name</label>
+            <div class="form-line"></div>
+          </div>
+          <div class="form-group"><input type="email" id="contactEmail" name="email" required placeholder=" " /><label
+              for="contactEmail">Your Email</label>
+            <div class="form-line"></div>
+          </div>
+          <div class="form-group"><textarea id="contactMessage" name="message" rows="5" required
+              placeholder=" "></textarea><label for="contactMessage">Your Message</label>
+            <div class="form-line"></div>
+          </div>
+          <div style="display:none"><input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></div>
           <div class="form-error" id="contactFormError" aria-live="polite"></div>
           <button type="submit" class="btn btn--primary btn--full magnetic" id="contactSubmitBtn">
             <span class="btn__bg"></span>
             <span class="btn__text">Send Message</span>
-            <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span>
+            <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13" />
+                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+              </svg></span>
           </button>
         </form>
         <div class="contact__info anim-item">
           <div class="contact__info-card glass-card">
             <h3>Let's Connect</h3>
             <div class="contact__links">
-              <a href="mailto:memberofpfc20@gmail.com" class="contact__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><div><span class="contact__link-label">Email</span><span class="contact__link-value">memberofpfc20@gmail.com</span></div></a>
-              <a href="https://www.linkedin.com/in/faizul-ishfaque" target="_blank" rel="noopener" class="contact__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><div><span class="contact__link-label">LinkedIn</span><span class="contact__link-value">faizul-ishfaque</span></div></a>
-              <a href="https://github.com/ishfak07" target="_blank" rel="noopener" class="contact__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg><div><span class="contact__link-label">GitHub</span><span class="contact__link-value">ishfak07</span></div></a>
+              <a href="mailto:memberofpfc20@gmail.com" class="contact__link"><svg viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <div><span class="contact__link-label">Email</span><span
+                    class="contact__link-value">memberofpfc20@gmail.com</span></div>
+              </a>
+              <a href="https://www.linkedin.com/in/faizul-ishfaque" target="_blank" rel="noopener"
+                class="contact__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+                <div><span class="contact__link-label">LinkedIn</span><span
+                    class="contact__link-value">faizul-ishfaque</span></div>
+              </a>
+              <a href="https://github.com/ishfak07" target="_blank" rel="noopener" class="contact__link"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                </svg>
+                <div><span class="contact__link-label">GitHub</span><span class="contact__link-value">ishfak07</span>
+                </div>
+              </a>
             </div>
           </div>
-          <div class="contact__portrait glass-card"><img src="./me 2.jpeg" alt="Faizul Ishfaque" loading="lazy"/></div>
+          <div class="contact__portrait glass-card"><img src="./me 2.jpeg" alt="Faizul Ishfaque" loading="lazy" /></div>
         </div>
       </div>
     </div>
@@ -361,14 +585,17 @@
   </footer>
 
   <!-- Back to Top -->
-  <button class="back-to-top" id="backToTop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg></button>
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2">
+      <polyline points="18 15 12 9 6 15" />
+    </svg></button>
 
   <!-- Floating Resume Download -->
   <a href="./ishfak%20resume%20N.pdf" class="floating-resume" id="floatingResume" download aria-label="Download Resume">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-      <polyline points="7 10 12 15 17 10"/>
-      <line x1="12" y1="15" x2="12" y2="3"/>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
     </svg>
     <span>CV</span>
   </a>
@@ -383,11 +610,19 @@
       <ul class="modal__features" id="modalFeatures"></ul>
       <div class="modal__tech" id="modalTech"></div>
       <div class="modal__actions">
-        <a id="modalRepo" class="btn btn--primary" target="_blank" rel="noopener"><span class="btn__bg"></span><span class="btn__text">View Repository</span><span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span></a>
+        <a id="modalRepo" class="btn btn--primary" target="_blank" rel="noopener"><span class="btn__bg"></span><span
+            class="btn__text">View Repository</span><span class="btn__icon"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg></span></a>
       </div>
     </div>
   </div>
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"M. I. F. Ishfaque","email":"mailto:memberofpfc20@gmail.com","jobTitle":"Software Engineer","alumniOf":["University of Plymouth"],"sameAs":["https://www.linkedin.com/in/faizul-ishfaque","https://github.com/ishfak07"],"worksFor":{"@type":"Organization","name":"Imara Software Solutions"},"address":{"@type":"PostalAddress","addressLocality":"Puttalam","addressCountry":"Sri Lanka"}}</script>
+  <script
+    type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"M. I. F. Ishfaque","email":"mailto:memberofpfc20@gmail.com","jobTitle":"Software Engineer","alumniOf":["University of Plymouth"],"sameAs":["https://www.linkedin.com/in/faizul-ishfaque","https://github.com/ishfak07"],"worksFor":{"@type":"Organization","name":"Imara Software Solutions"},"address":{"@type":"PostalAddress","addressLocality":"Puttalam","addressCountry":"Sri Lanka"}}</script>
 </body>
+
 </html>

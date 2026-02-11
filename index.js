@@ -223,11 +223,11 @@
       particles.forEach(function (p, i) {
         // Add wave motion
         var wave = Math.sin(time + p.phase) * 0.5;
-        
+
         // Move with wave influence
         p.x += p.vx + wave * 0.1;
         p.y += p.vy + Math.cos(time + p.phase) * 0.1;
-        
+
         // Boundary bounce
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
@@ -244,14 +244,14 @@
 
         // Pulsating opacity
         var pulseOpacity = p.opacity + Math.sin(time * 2 + p.phase) * 0.2;
-        
+
         // Draw particle with gradient
         var gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
         var useCyan = Math.sin(time + i * 0.1) > 0.3;
         var color = useCyan ? accentColor : particleColor;
         gradient.addColorStop(0, 'rgba(' + color + ',' + pulseOpacity + ')');
         gradient.addColorStop(1, 'rgba(' + color + ', 0)');
-        
+
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = gradient;
@@ -291,7 +291,7 @@
     var mouse = { x: 0, y: 0 };
     var targetMouse = { x: 0, y: 0 };
 
-    document.addEventListener('mousemove', function(e) {
+    document.addEventListener('mousemove', function (e) {
       targetMouse.x = e.clientX / window.innerWidth;
       targetMouse.y = e.clientY / window.innerHeight;
     });
@@ -301,11 +301,11 @@
       mouse.x += (targetMouse.x - mouse.x) * 0.05;
       mouse.y += (targetMouse.y - mouse.y) * 0.05;
 
-      orbs.forEach(function(orb, i) {
+      orbs.forEach(function (orb, i) {
         var speed = (i + 1) * 10;
         var xOffset = (mouse.x - 0.5) * speed;
         var yOffset = (mouse.y - 0.5) * speed;
-        
+
         var currentTransform = orb.style.transform || '';
         var baseTransform = currentTransform.split('translate(')[0];
         orb.style.transform = baseTransform + ' translate(' + xOffset + 'px, ' + yOffset + 'px)';
@@ -322,29 +322,29 @@
     var portrait = document.querySelector('.hero__portrait');
     if (!portraitWrap || !portrait) return;
 
-    portraitWrap.addEventListener('mousemove', function(e) {
+    portraitWrap.addEventListener('mousemove', function (e) {
       var rect = portraitWrap.getBoundingClientRect();
       var x = (e.clientX - rect.left) / rect.width - 0.5;
       var y = (e.clientY - rect.top) / rect.height - 0.5;
-      
+
       var rotateY = x * 15;
       var rotateX = -y * 15;
       var translateZ = 20;
-      
+
       portrait.style.transform = 'scale(1.05) translateZ(' + translateZ + 'px) rotateY(' + rotateY + 'deg) rotateX(' + rotateX + 'deg)';
-      
+
       // Move rings in opposite direction
       var rings = portraitWrap.querySelectorAll('.hero__portrait-ring');
-      rings.forEach(function(ring, i) {
+      rings.forEach(function (ring, i) {
         var multiplier = (i + 1) * 0.5;
         ring.style.transform = 'translate(' + (-x * 10 * multiplier) + 'px, ' + (-y * 10 * multiplier) + 'px) rotate(' + (i === 0 ? '0deg' : '0deg') + ')';
       });
     });
 
-    portraitWrap.addEventListener('mouseleave', function() {
+    portraitWrap.addEventListener('mouseleave', function () {
       portrait.style.transform = '';
       var rings = portraitWrap.querySelectorAll('.hero__portrait-ring');
-      rings.forEach(function(ring) {
+      rings.forEach(function (ring) {
         ring.style.transform = '';
       });
     });
@@ -359,33 +359,33 @@
     tl.to('.hero__text', {
       opacity: 1, duration: 0.01
     })
-    .from('.hero__greeting', {
-      opacity: 0, x: -30, duration: 0.6, ease: 'power3.out'
-    })
-    .from('.hero__name-line', {
-      opacity: 0, y: 60, rotateX: -20, duration: 0.8, ease: 'power3.out', stagger: 0.15
-    }, '-=0.3')
-    .from('.hero__role', {
-      opacity: 0, y: 20, duration: 0.5, ease: 'power2.out'
-    }, '-=0.3')
-    .from('.hero__desc', {
-      opacity: 0, y: 20, duration: 0.5, ease: 'power2.out'
-    }, '-=0.2')
-    .from('.hero__actions .btn', {
-      opacity: 0, y: 20, duration: 0.5, ease: 'power2.out', stagger: 0.1
-    }, '-=0.2')
-    .from('.hero__socials .hero__social', {
-      opacity: 0, y: 15, scale: 0.8, duration: 0.4, ease: 'back.out(1.7)', stagger: 0.08
-    }, '-=0.2')
-    .from('.hero__portrait-wrap', {
-      opacity: 0, scale: 0.8, duration: 0.8, ease: 'power3.out'
-    }, '-=0.8')
-    .from('.hero__stat', {
-      opacity: 0, scale: 0.5, y: 20, duration: 0.5, ease: 'back.out(2)', stagger: 0.12
-    }, '-=0.4')
-    .from('.hero__scroll', {
-      opacity: 0, y: 20, duration: 0.5, ease: 'power2.out'
-    }, '-=0.2');
+      .from('.hero__greeting', {
+        opacity: 0, x: -50, rotateY: -15, z: -50, duration: 0.7, ease: 'power3.out'
+      })
+      .from('.hero__name-line', {
+        opacity: 0, y: 80, rotateX: -30, z: -100, duration: 1, ease: 'power3.out', stagger: 0.2
+      }, '-=0.3')
+      .from('.hero__role', {
+        opacity: 0, y: 30, z: -40, duration: 0.6, ease: 'power2.out'
+      }, '-=0.4')
+      .from('.hero__desc', {
+        opacity: 0, y: 30, z: -30, duration: 0.6, ease: 'power2.out'
+      }, '-=0.3')
+      .from('.hero__actions .btn', {
+        opacity: 0, y: 30, z: -50, rotateX: -10, duration: 0.6, ease: 'power2.out', stagger: 0.12
+      }, '-=0.3')
+      .from('.hero__socials .hero__social', {
+        opacity: 0, y: 20, scale: 0.6, z: -30, duration: 0.5, ease: 'back.out(2)', stagger: 0.1
+      }, '-=0.3')
+      .from('.hero__portrait-wrap', {
+        opacity: 0, scale: 0.6, rotateY: 30, z: -150, duration: 1, ease: 'power3.out'
+      }, '-=0.9')
+      .from('.hero__stat', {
+        opacity: 0, scale: 0.3, y: 40, z: -60, duration: 0.6, ease: 'back.out(2.5)', stagger: 0.15
+      }, '-=0.5')
+      .from('.hero__scroll', {
+        opacity: 0, y: 30, duration: 0.5, ease: 'power2.out'
+      }, '-=0.3');
   }
 
   /* ========== SCROLL ANIMATIONS ========== */
@@ -408,11 +408,11 @@
 
     animItems.forEach(function (item, i) {
       // Add stagger delay
-      item.style.transitionDelay = (i % 5) * 0.1 + 's';
+      item.style.transitionDelay = (i % 5) * 0.12 + 's';
       observer.observe(item);
     });
 
-    // GSAP ScrollTrigger for section headers
+    // GSAP ScrollTrigger for section headers with 3D depth
     if (typeof gsap === 'undefined') return;
 
     document.querySelectorAll('.section__header').forEach(function (header) {
@@ -420,40 +420,57 @@
         scrollTrigger: {
           trigger: header, start: 'top 80%', toggleActions: 'play none none none'
         },
-        opacity: 0, x: -30, duration: 0.6, ease: 'power3.out'
+        opacity: 0, x: -50, z: -40, rotateY: -20, duration: 0.8, ease: 'power3.out'
       });
       gsap.from(header.querySelector('.section__title'), {
         scrollTrigger: {
           trigger: header, start: 'top 80%', toggleActions: 'play none none none'
         },
-        opacity: 0, y: 30, duration: 0.7, ease: 'power3.out', delay: 0.15
+        opacity: 0, y: 50, z: -60, rotateX: -15, duration: 0.9, ease: 'power3.out', delay: 0.15
       });
       gsap.from(header.querySelector('.section__line'), {
         scrollTrigger: {
           trigger: header, start: 'top 80%', toggleActions: 'play none none none'
         },
-        scaleX: 0, duration: 0.6, ease: 'power3.out', delay: 0.3
+        scaleX: 0, z: -20, duration: 0.7, ease: 'power3.out', delay: 0.3
       });
     });
 
-    // Animate timeline items
+    // Animate timeline items with 3D depth
     document.querySelectorAll('.timeline__item').forEach(function (item, i) {
       gsap.to(item, {
         scrollTrigger: {
           trigger: item, start: 'top 85%', toggleActions: 'play none none none'
         },
-        opacity: 1, x: 0, duration: 0.6, ease: 'power3.out', delay: i * 0.1
+        opacity: 1, x: 0, z: 0, rotateY: 0, duration: 0.7, ease: 'power3.out', delay: i * 0.12
       });
+    });
+
+    // 3D Parallax on sections    
+    document.querySelectorAll('.section').forEach(function (section) {
+      gsap.fromTo(section,
+        { z: -30, rotateX: 2 },
+        {
+          z: 0, rotateX: 0,
+          scrollTrigger: {
+            trigger: section,
+            start: 'top bottom',
+            end: 'top 30%',
+            scrub: 1
+          },
+          ease: 'none'
+        }
+      );
     });
 
     // Parallax on gradient orbs
     gsap.to('.hero__gradient-orb--1', {
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
-      y: -150, ease: 'none'
+      y: -150, z: -50, ease: 'none'
     });
     gsap.to('.hero__gradient-orb--2', {
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
-      y: -100, ease: 'none'
+      y: -100, z: -30, ease: 'none'
     });
   }
 
@@ -773,15 +790,25 @@
         var y = e.clientY - rect.top;
         var centerX = rect.width / 2;
         var centerY = rect.height / 2;
-        var rotateX = (y - centerY) / centerY * -6;
-        var rotateY = (x - centerX) / centerX * 6;
+        var rotateX = (y - centerY) / centerY * -10;
+        var rotateY = (x - centerX) / centerX * 10;
 
-        card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-5px)';
+        card.style.transform = 'perspective(1200px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateZ(20px) translateY(-8px)';
+
+        // Move glow to cursor position
+        var glowEl = card.querySelector('.service-card__glow');
+        if (glowEl) {
+          glowEl.style.background = 'radial-gradient(circle at ' + x + 'px ' + y + 'px, rgba(var(--accent-rgb), 0.15), transparent 70%)';
+          glowEl.style.opacity = '1';
+        }
       });
       card.addEventListener('mouseleave', function () {
         card.style.transform = '';
-        card.style.transition = 'transform 0.5s ease';
-        setTimeout(function () { card.style.transition = ''; }, 500);
+        card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+        setTimeout(function () { card.style.transition = ''; }, 600);
+
+        var glowEl = card.querySelector('.service-card__glow');
+        if (glowEl) glowEl.style.opacity = '0';
       });
     });
   }
