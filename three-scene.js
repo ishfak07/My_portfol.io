@@ -280,11 +280,11 @@
     // Multi-pass glow for neon bloom
     ctx.shadowColor = lang.neon;
     ctx.shadowBlur = 40;
-    lang.drawIcon(ctx, cx, cy - 20, 5, lang.neon);
+    lang.drawIcon(ctx, cx, cy - 20, 2.5, lang.neon);
     ctx.shadowBlur = 25;
-    lang.drawIcon(ctx, cx, cy - 20, 5, lang.neon);
+    lang.drawIcon(ctx, cx, cy - 20, 2.5, lang.neon);
     ctx.shadowBlur = 8;
-    lang.drawIcon(ctx, cx, cy - 20, 5, lang.neon);
+    lang.drawIcon(ctx, cx, cy - 20, 2.5, lang.neon);
     // Label
     ctx.shadowColor = lang.neon; ctx.shadowBlur = 12;
     ctx.fillStyle = lang.neon;
@@ -306,12 +306,12 @@
       sizeAttenuation: true
     });
     var sprite = new THREE.Sprite(spriteMat);
-    var iconScale = 6 + Math.random() * 3;
+    var iconScale = 2.5 + Math.random() * 1.5;
     sprite.scale.set(iconScale, iconScale, 1);
 
     // Spread across the full camera travel path (z=25 to z=-5)
     var angle = (g / langIcons.length) * Math.PI * 2 + 0.4;
-    var radius = 10 + Math.random() * 8;
+    var radius = 12 + Math.random() * 10;
     sprite.position.set(
       Math.cos(angle) * radius,
       (Math.random() - 0.5) * 12,
