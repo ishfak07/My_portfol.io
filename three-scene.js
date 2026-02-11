@@ -180,50 +180,134 @@
   var lines = new THREE.LineSegments(lineGeometry, lineMaterial);
   scene.add(lines);
 
-  /* ---------- WIREFRAME GEOMETRY ---------- */
+  /* ---------- 3D LANGUAGE ICON CUBES ---------- */
   var wireframes = [];
-  var geometryTypes = [
-    function () { return new THREE.IcosahedronGeometry(2.5, 1); },
-    function () { return new THREE.TorusKnotGeometry(1.8, 0.5, 64, 8, 2, 3); },
-    function () { return new THREE.OctahedronGeometry(2, 1); },
-    function () { return new THREE.TorusGeometry(2, 0.6, 12, 32); },
-    function () { return new THREE.DodecahedronGeometry(2, 0); },
-    function () { return new THREE.TetrahedronGeometry(2.5, 1); },
-    function () { return new THREE.IcosahedronGeometry(3, 0); }
+
+  var langIcons = [
+    { name: 'Python', symbol: 'Py', bg: '#3776AB', fg: '#FFD43B', accent: '#306998' },
+    { name: 'JavaScript', symbol: 'JS', bg: '#F7DF1E', fg: '#323330', accent: '#C6B517' },
+    { name: 'HTML', symbol: '</>', bg: '#E34F26', fg: '#FFFFFF', accent: '#C13B1B' },
+    { name: 'MongoDB', symbol: 'DB', bg: '#47A248', fg: '#FFFFFF', accent: '#3D8B3D' },
+    { name: 'SQL', symbol: 'SQL', bg: '#CC2927', fg: '#FFFFFF', accent: '#A61F1E' }
   ];
 
-  for (var g = 0; g < CONFIG.geometryCount; g++) {
-    var geo = geometryTypes[g % geometryTypes.length]();
-    var wfMat = new THREE.MeshBasicMaterial({
-      color: g % 2 === 0 ? 0x7c3aed : 0x06b6d4,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.08 + Math.random() * 0.07,
-      blending: THREE.AdditiveBlending
-    });
-    var mesh = new THREE.Mesh(geo, wfMat);
+  // Create canvas texture for each language
+  function createIconTexture(lang) {
+    var size = 256;
+    var canvas2d = document.createElement('canvas');
+    canvas2d.width = size;
+    canvas2d.height = size;
+    var ctx = canvas2d.getContext('2d');
 
-    // Position in a ring around camera path
-    var angle = (g / CONFIG.geometryCount) * Math.PI * 2;
-    var radius = 15 + Math.random() * 20;
+    // Background with rounded corners
+    ctx.fillStyle = lang.bg;
+    ctx.beginPath();
+    var r = 30;
+    ctx.moveTo(r, 0);
+    ctx.lineTo(size - r, 0);
+    ctx.quadraticCurveTo(size, 0, size, r);
+    ctx.lineTo(size, size - r);
+    ctx.quadraticCurveTo(size, size, size - r, size);
+    ctx.lineTo(r, size);
+    ctx.quadraticCurveTo(0, size, 0, size - r);
+    ctx.lineTo(0, r);
+    ctx.quadraticCurveTo(0, 0, r, 0);
+    ctx.closePath();
+    ctx.fill();
+
+    // Inner glow
+    var gradient = ctx.createRadialGradient(size / 2, size / 2, 20, size / 2, size / 2, size / 2);
+    gradient.addColorStop(0, 'rgba(255,255,255,0.15)');
+    gradient.addColorStop(1, 'rgba(0,0,0,0.1)');
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    // Border glow
+    ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    // Symbol text (large)
+    ctx.fillStyle = lang.fg;
+    ctx.font = 'bold ' + (lang.symbol.length > 2 ? '72' : '90') + 'px "Inter", "Segoe UI", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowColor = 'rgba(0,0,0,0.4)';
+    ctx.shadowBlur = 10;
+    ctx.fillText(lang.symbol, size / 2, size / 2 - 15);
+
+    // Label text (small, below)
+    ctx.shadowBlur = 5;
+    ctx.font = '500 22px "Inter", "Segoe UI", sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.fillText(lang.name, size / 2, size / 2 + 50);
+
+    var texture = new THREE.CanvasTexture(canvas2d);
+    texture.needsUpdate = true;
+    return texture;
+  }
+
+  // Create side texture (plain accent color)
+  function createSideTexture(lang) {
+    var size = 64;
+    var canvas2d = document.createElement('canvas');
+    canvas2d.width = size;
+    canvas2d.height = size;
+    var ctx = canvas2d.getContext('2d');
+    ctx.fillStyle = lang.accent;
+    ctx.fillRect(0, 0, size, size);
+    // Subtle grid pattern
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 1;
+    for (var i = 0; i < size; i += 8) {
+      ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, size); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(size, i); ctx.stroke();
+    }
+    var texture = new THREE.CanvasTexture(canvas2d);
+    texture.needsUpdate = true;
+    return texture;
+  }
+
+  for (var g = 0; g < langIcons.length; g++) {
+    var lang = langIcons[g];
+    var faceTexture = createIconTexture(lang);
+    var sideTexture = createSideTexture(lang);
+
+    // 6 faces: right, left, top, bottom, front, back
+    var materials = [
+      new THREE.MeshBasicMaterial({ map: sideTexture, transparent: true, opacity: 0.9 }),
+      new THREE.MeshBasicMaterial({ map: sideTexture, transparent: true, opacity: 0.9 }),
+      new THREE.MeshBasicMaterial({ map: sideTexture, transparent: true, opacity: 0.9 }),
+      new THREE.MeshBasicMaterial({ map: sideTexture, transparent: true, opacity: 0.9 }),
+      new THREE.MeshBasicMaterial({ map: faceTexture, transparent: true, opacity: 0.95 }),
+      new THREE.MeshBasicMaterial({ map: faceTexture, transparent: true, opacity: 0.95 })
+    ];
+
+    var cubeSize = 3 + Math.random() * 1.5;
+    var geo = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize * 0.4);
+    var mesh = new THREE.Mesh(geo, materials);
+
+    // Position spread across the scene
+    var angle = (g / langIcons.length) * Math.PI * 2 + 0.3;
+    var radius = 12 + Math.random() * 15;
     mesh.position.set(
       Math.cos(angle) * radius,
-      (Math.random() - 0.5) * 20,
-      -10 + Math.random() * -50
+      (Math.random() - 0.5) * 15,
+      -5 + Math.random() * -35
     );
     mesh.rotation.set(
-      Math.random() * Math.PI,
-      Math.random() * Math.PI,
-      Math.random() * Math.PI
+      (Math.random() - 0.5) * 0.3,
+      (Math.random() - 0.5) * 0.5,
+      (Math.random() - 0.5) * 0.15
     );
     mesh.userData = {
       rotSpeed: {
-        x: (Math.random() - 0.5) * 0.005,
-        y: (Math.random() - 0.5) * 0.008,
-        z: (Math.random() - 0.5) * 0.003
+        x: (Math.random() - 0.5) * 0.004,
+        y: (Math.random() - 0.5) * 0.006,
+        z: (Math.random() - 0.5) * 0.002
       },
-      floatSpeed: 0.3 + Math.random() * 0.5,
-      floatAmp: 1 + Math.random() * 3,
+      floatSpeed: 0.3 + Math.random() * 0.4,
+      floatAmp: 1.5 + Math.random() * 2.5,
       baseY: mesh.position.y,
       phase: Math.random() * Math.PI * 2
     };
@@ -302,10 +386,11 @@
     // Update particle opacity
     particleMaterial.uniforms.uOpacity.value = isDark ? 0.7 : 0.45;
 
-    // Update wireframe colors
-    wireframes.forEach(function (wf, i) {
-      wf.material.color.copy(i % 2 === 0 ? palette.wireframe : palette.particle2);
-      wf.material.opacity = isDark ? 0.08 + Math.random() * 0.07 : 0.04 + Math.random() * 0.04;
+    // Update language icon cube opacity
+    wireframes.forEach(function (wf) {
+      wf.material.forEach(function (mat) {
+        mat.opacity = isDark ? (mat.map && mat.map.image && mat.map.image.width > 64 ? 0.95 : 0.9) : 0.7;
+      });
     });
 
     // Update ring
