@@ -180,140 +180,154 @@
   var lines = new THREE.LineSegments(lineGeometry, lineMaterial);
   scene.add(lines);
 
-  /* ---------- 3D LANGUAGE ICON CUBES ---------- */
+  /* ---------- 3D NEON LANGUAGE ICONS ---------- */
   var wireframes = [];
 
-  var langIcons = [
-    { name: 'Python', symbol: 'Py', bg: '#3776AB', fg: '#FFD43B', accent: '#306998' },
-    { name: 'JavaScript', symbol: 'JS', bg: '#F7DF1E', fg: '#323330', accent: '#C6B517' },
-    { name: 'HTML', symbol: '</>', bg: '#E34F26', fg: '#FFFFFF', accent: '#C13B1B' },
-    { name: 'MongoDB', symbol: 'DB', bg: '#47A248', fg: '#FFFFFF', accent: '#3D8B3D' },
-    { name: 'SQL', symbol: 'SQL', bg: '#CC2927', fg: '#FFFFFF', accent: '#A61F1E' }
-  ];
-
-  // Create canvas texture for each language
-  function createIconTexture(lang) {
-    var size = 256;
-    var canvas2d = document.createElement('canvas');
-    canvas2d.width = size;
-    canvas2d.height = size;
-    var ctx = canvas2d.getContext('2d');
-
-    // Background with rounded corners
-    ctx.fillStyle = lang.bg;
+  /* --- PYTHON: Two intertwined snakes --- */
+  function drawPython(ctx, cx, cy, s, neon) {
+    ctx.save(); ctx.translate(cx, cy); ctx.scale(s, s);
     ctx.beginPath();
-    var r = 30;
-    ctx.moveTo(r, 0);
-    ctx.lineTo(size - r, 0);
-    ctx.quadraticCurveTo(size, 0, size, r);
-    ctx.lineTo(size, size - r);
-    ctx.quadraticCurveTo(size, size, size - r, size);
-    ctx.lineTo(r, size);
-    ctx.quadraticCurveTo(0, size, 0, size - r);
-    ctx.lineTo(0, r);
-    ctx.quadraticCurveTo(0, 0, r, 0);
-    ctx.closePath();
-    ctx.fill();
-
-    // Inner glow
-    var gradient = ctx.createRadialGradient(size / 2, size / 2, 20, size / 2, size / 2, size / 2);
-    gradient.addColorStop(0, 'rgba(255,255,255,0.15)');
-    gradient.addColorStop(1, 'rgba(0,0,0,0.1)');
-    ctx.fillStyle = gradient;
-    ctx.fill();
-
-    // Border glow
-    ctx.strokeStyle = 'rgba(255,255,255,0.3)';
-    ctx.lineWidth = 4;
-    ctx.stroke();
-
-    // Symbol text (large)
-    ctx.fillStyle = lang.fg;
-    ctx.font = 'bold ' + (lang.symbol.length > 2 ? '72' : '90') + 'px "Inter", "Segoe UI", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.shadowColor = 'rgba(0,0,0,0.4)';
-    ctx.shadowBlur = 10;
-    ctx.fillText(lang.symbol, size / 2, size / 2 - 15);
-
-    // Label text (small, below)
-    ctx.shadowBlur = 5;
-    ctx.font = '500 22px "Inter", "Segoe UI", sans-serif';
-    ctx.fillStyle = 'rgba(255,255,255,0.85)';
-    ctx.fillText(lang.name, size / 2, size / 2 + 50);
-
-    var texture = new THREE.CanvasTexture(canvas2d);
-    texture.needsUpdate = true;
-    return texture;
+    ctx.moveTo(-22, -6); ctx.bezierCurveTo(-22, -30, -4, -38, 0, -38);
+    ctx.bezierCurveTo(4, -38, 22, -35, 22, -18); ctx.lineTo(22, -6);
+    ctx.lineTo(6, -6); ctx.lineTo(6, -10); ctx.lineTo(-6, -10);
+    ctx.lineTo(-6, 2); ctx.lineTo(-22, 2); ctx.closePath();
+    ctx.fillStyle = neon; ctx.fill();
+    ctx.beginPath(); ctx.arc(-10, -26, 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#0a0a1a'; ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(22, 6); ctx.bezierCurveTo(22, 30, 4, 38, 0, 38);
+    ctx.bezierCurveTo(-4, 38, -22, 35, -22, 18); ctx.lineTo(-22, 6);
+    ctx.lineTo(-6, 6); ctx.lineTo(-6, 10); ctx.lineTo(6, 10);
+    ctx.lineTo(6, -2); ctx.lineTo(22, -2); ctx.closePath();
+    ctx.globalAlpha = 0.6; ctx.fillStyle = neon; ctx.fill(); ctx.globalAlpha = 1;
+    ctx.beginPath(); ctx.arc(10, 26, 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#0a0a1a'; ctx.fill();
+    ctx.restore();
   }
 
-  // Create side texture (plain accent color)
-  function createSideTexture(lang) {
-    var size = 64;
-    var canvas2d = document.createElement('canvas');
-    canvas2d.width = size;
-    canvas2d.height = size;
-    var ctx = canvas2d.getContext('2d');
-    ctx.fillStyle = lang.accent;
-    ctx.fillRect(0, 0, size, size);
-    // Subtle grid pattern
-    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-    ctx.lineWidth = 1;
-    for (var i = 0; i < size; i += 8) {
-      ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, size); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(size, i); ctx.stroke();
-    }
-    var texture = new THREE.CanvasTexture(canvas2d);
+  /* --- JAVASCRIPT: Shield with JS --- */
+  function drawJS(ctx, cx, cy, s, neon) {
+    ctx.save(); ctx.translate(cx, cy); ctx.scale(s, s);
+    ctx.beginPath();
+    ctx.moveTo(-28, -32); ctx.lineTo(28, -32); ctx.lineTo(28, 10);
+    ctx.lineTo(0, 34); ctx.lineTo(-28, 10); ctx.closePath();
+    ctx.globalAlpha = 0.15; ctx.fillStyle = neon; ctx.fill();
+    ctx.globalAlpha = 1; ctx.strokeStyle = neon; ctx.lineWidth = 2.5; ctx.stroke();
+    ctx.fillStyle = neon; ctx.font = 'bold 30px "Inter", sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('JS', 0, -2);
+    ctx.restore();
+  }
+
+  /* --- HTML: Angle brackets with slash --- */
+  function drawHTML(ctx, cx, cy, s, neon) {
+    ctx.save(); ctx.translate(cx, cy); ctx.scale(s, s);
+    ctx.strokeStyle = neon; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.beginPath(); ctx.moveTo(-8, -22); ctx.lineTo(-28, 0); ctx.lineTo(-8, 22); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(8, -22); ctx.lineTo(28, 0); ctx.lineTo(8, 22); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(6, -28); ctx.lineTo(-6, 28); ctx.stroke();
+    ctx.restore();
+  }
+
+  /* --- MONGODB: Leaf shape --- */
+  function drawMongoDB(ctx, cx, cy, s, neon) {
+    ctx.save(); ctx.translate(cx, cy); ctx.scale(s, s);
+    ctx.beginPath();
+    ctx.moveTo(0, -36);
+    ctx.bezierCurveTo(18, -28, 28, -10, 26, 8);
+    ctx.bezierCurveTo(24, 24, 12, 34, 0, 38);
+    ctx.bezierCurveTo(-12, 34, -24, 24, -26, 8);
+    ctx.bezierCurveTo(-28, -10, -18, -28, 0, -36); ctx.closePath();
+    ctx.globalAlpha = 0.12; ctx.fillStyle = neon; ctx.fill();
+    ctx.globalAlpha = 1; ctx.strokeStyle = neon; ctx.lineWidth = 2.5; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, -24); ctx.lineTo(0, 30);
+    ctx.strokeStyle = neon; ctx.lineWidth = 2; ctx.stroke();
+    ctx.globalAlpha = 0.5; ctx.fillStyle = neon; ctx.fillRect(-3, 30, 6, 6); ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
+  /* --- SQL: Database cylinder --- */
+  function drawSQL(ctx, cx, cy, s, neon) {
+    ctx.save(); ctx.translate(cx, cy); ctx.scale(s, s);
+    ctx.strokeStyle = neon; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.ellipse(0, -20, 24, 10, 0, 0, Math.PI * 2);
+    ctx.globalAlpha = 0.15; ctx.fillStyle = neon; ctx.fill();
+    ctx.globalAlpha = 1; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-24, -20); ctx.lineTo(-24, 20); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(24, -20); ctx.lineTo(24, 20); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(0, 20, 24, 10, 0, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(0, 0, 24, 10, 0, Math.PI, Math.PI * 2);
+    ctx.globalAlpha = 0.4; ctx.stroke(); ctx.globalAlpha = 1;
+    ctx.fillStyle = neon; ctx.font = 'bold 16px "Inter", sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('SQL', 0, 1);
+    ctx.restore();
+  }
+
+  /* --- Neon icon configs --- */
+  var langIcons = [
+    { name: 'Python', neon: '#00e5ff', drawIcon: drawPython },
+    { name: 'JavaScript', neon: '#ffea00', drawIcon: drawJS },
+    { name: 'HTML', neon: '#ff6e40', drawIcon: drawHTML },
+    { name: 'MongoDB', neon: '#69f0ae', drawIcon: drawMongoDB },
+    { name: 'SQL', neon: '#e040fb', drawIcon: drawSQL }
+  ];
+
+  /* --- Create neon icon sprite texture --- */
+  function createNeonIconTexture(lang) {
+    var size = 512;
+    var c2 = document.createElement('canvas'); c2.width = size; c2.height = size;
+    var ctx = c2.getContext('2d');
+    var cx = size / 2, cy = size / 2;
+    // Multi-pass glow for neon bloom
+    ctx.shadowColor = lang.neon;
+    ctx.shadowBlur = 40;
+    lang.drawIcon(ctx, cx, cy - 20, 5, lang.neon);
+    ctx.shadowBlur = 25;
+    lang.drawIcon(ctx, cx, cy - 20, 5, lang.neon);
+    ctx.shadowBlur = 8;
+    lang.drawIcon(ctx, cx, cy - 20, 5, lang.neon);
+    // Label
+    ctx.shadowColor = lang.neon; ctx.shadowBlur = 12;
+    ctx.fillStyle = lang.neon;
+    ctx.font = '600 28px "Inter", "Segoe UI", sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(lang.name, cx, cy + 170);
+    ctx.shadowBlur = 6; ctx.fillText(lang.name, cx, cy + 170);
+    var texture = new THREE.CanvasTexture(c2);
     texture.needsUpdate = true;
     return texture;
   }
 
   for (var g = 0; g < langIcons.length; g++) {
     var lang = langIcons[g];
-    var faceTexture = createIconTexture(lang);
-    var sideTexture = createSideTexture(lang);
+    var spriteMat = new THREE.SpriteMaterial({
+      map: createNeonIconTexture(lang),
+      transparent: true, opacity: 1.0,
+      blending: THREE.AdditiveBlending, depthWrite: false,
+      sizeAttenuation: true
+    });
+    var sprite = new THREE.Sprite(spriteMat);
+    var iconScale = 6 + Math.random() * 3;
+    sprite.scale.set(iconScale, iconScale, 1);
 
-    // 6 faces: right, left, top, bottom, front, back
-    var materials = [
-      new THREE.MeshBasicMaterial({ map: sideTexture, transparent: true, opacity: 0.9 }),
-      new THREE.MeshBasicMaterial({ map: sideTexture, transparent: true, opacity: 0.9 }),
-      new THREE.MeshBasicMaterial({ map: sideTexture, transparent: true, opacity: 0.9 }),
-      new THREE.MeshBasicMaterial({ map: sideTexture, transparent: true, opacity: 0.9 }),
-      new THREE.MeshBasicMaterial({ map: faceTexture, transparent: true, opacity: 0.95 }),
-      new THREE.MeshBasicMaterial({ map: faceTexture, transparent: true, opacity: 0.95 })
-    ];
-
-    var cubeSize = 3 + Math.random() * 1.5;
-    var geo = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize * 0.4);
-    var mesh = new THREE.Mesh(geo, materials);
-
-    // Position spread across the scene
-    var angle = (g / langIcons.length) * Math.PI * 2 + 0.3;
-    var radius = 12 + Math.random() * 15;
-    mesh.position.set(
+    // Spread across the full camera travel path (z=25 to z=-5)
+    var angle = (g / langIcons.length) * Math.PI * 2 + 0.4;
+    var radius = 10 + Math.random() * 8;
+    sprite.position.set(
       Math.cos(angle) * radius,
-      (Math.random() - 0.5) * 15,
-      -5 + Math.random() * -35
+      (Math.random() - 0.5) * 12,
+      25 - (g / (langIcons.length - 1)) * 30
     );
-    mesh.rotation.set(
-      (Math.random() - 0.5) * 0.3,
-      (Math.random() - 0.5) * 0.5,
-      (Math.random() - 0.5) * 0.15
-    );
-    mesh.userData = {
-      rotSpeed: {
-        x: (Math.random() - 0.5) * 0.004,
-        y: (Math.random() - 0.5) * 0.006,
-        z: (Math.random() - 0.5) * 0.002
-      },
-      floatSpeed: 0.3 + Math.random() * 0.4,
-      floatAmp: 1.5 + Math.random() * 2.5,
-      baseY: mesh.position.y,
+    sprite.userData = {
+      floatSpeed: 0.25 + Math.random() * 0.35,
+      floatAmp: 1.2 + Math.random() * 2,
+      baseY: sprite.position.y,
       phase: Math.random() * Math.PI * 2
     };
-    scene.add(mesh);
-    wireframes.push(mesh);
+    scene.add(sprite);
+    wireframes.push(sprite);
   }
+
+
 
   /* ---------- NEBULA FOG PLANES ---------- */
   var nebulaGroup = new THREE.Group();
@@ -386,11 +400,9 @@
     // Update particle opacity
     particleMaterial.uniforms.uOpacity.value = isDark ? 0.7 : 0.45;
 
-    // Update language icon cube opacity
+    // Update language icon sprite opacity
     wireframes.forEach(function (wf) {
-      wf.material.forEach(function (mat) {
-        mat.opacity = isDark ? (mat.map && mat.map.image && mat.map.image.width > 64 ? 0.95 : 0.9) : 0.7;
-      });
+      wf.material.opacity = isDark ? 0.92 : 0.6;
     });
 
     // Update ring
@@ -486,17 +498,16 @@
     camera.rotation.x = scrollProgress * -0.15 + mouse.y * 0.08;
     camera.rotation.y = mouse.x * 0.12;
 
-    // Animate wireframe geometry
+    // Animate language icon sprites (float in place)
     wireframes.forEach(function (wf) {
       var ud = wf.userData;
-      wf.rotation.x += ud.rotSpeed.x;
-      wf.rotation.y += ud.rotSpeed.y;
-      wf.rotation.z += ud.rotSpeed.z;
       wf.position.y = ud.baseY + Math.sin(elapsed * ud.floatSpeed + ud.phase) * ud.floatAmp;
 
       // Subtle breathing scale
-      var breathe = 1 + Math.sin(elapsed * 0.5 + ud.phase) * 0.05;
-      wf.scale.setScalar(breathe);
+      var baseScale = ud.baseScale || wf.scale.x;
+      if (!ud.baseScale) ud.baseScale = wf.scale.x;
+      var breathe = baseScale * (1 + Math.sin(elapsed * 0.5 + ud.phase) * 0.08);
+      wf.scale.set(breathe, breathe, 1);
     });
 
     // Animate nebula planes
